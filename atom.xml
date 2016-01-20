@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title><![CDATA[Role Space]]></title>
+  <subtitle><![CDATA[Carpela's blog]]></subtitle>
+  <link href="/atom.xml" rel="self"/>
+  <link href="http://blog.carpela.me/"/>
+  <updated>2016-01-20T17:51:56.000Z</updated>
+  <id>http://blog.carpela.me/</id>
+  
+  <author>
+    <name><![CDATA[Hover Winter]]></name>
+    <email><![CDATA[hoverwinter@gmail.com]]></email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title><![CDATA[博客变迁之路]]></title>
+    <link href="http://blog.carpela.me/2016/01/21/about-my-blog/"/>
+    <id>http://blog.carpela.me/2016/01/21/about-my-blog/</id>
+    <published>2016-01-20T16:11:26.000Z</published>
+    <updated>2016-01-20T17:51:56.000Z</updated>
+    <content type="html"><![CDATA[<p>早在2014年10月，我就利用Jekyll在Github上搭起了自己的博客，也写不少东西，然而经过数次变故，博文一篇都没留下，其中很大一部分原因是觉得写的博文质量不高。写博客是个好习惯，学习的同时，记录见解，与诸君分享，加深理解。于是乎，用心写作，从头开始，以此文作为博客新的开端。</p>
+<a id="more"></a>
+<h2 id="v1-0"><a href="#v1-0" class="headerlink" title="v1.0"></a>v1.0</h2><p>我虽不是个Rubyer，但刚接触Jekyll，我便顶着官网的英文文档理解它的原理，同时学习Liquid模版语言的使用。我有一定的Web开发基础，用过别的模板语言，所以这个过程还算顺利。那时做的一个东西用到了Bootstrap，于是乎，博客1.0是在Jekyll-Bootstrap的基础上改出来的，J.B. 没有什么好的主题，我也就被迫写着各种Javascript，HTML，CSS。虽不是专业前端，但要搞一个漂亮的博客，我的那些知识还是够用的。</p>
+<p>当时的博客背景是竹子，看起来很清新。左边是用喜欢的英文字体写的个人信息，而且使用JQuery加上触发器的原理搞了一个浮动效果：半透明的圆角矩形框的文章列表下拉超过窗口高度的一半时，信息栏便会滚动到另一个位置固定(JQuery的动画)；拉回页面顶端，信息栏以同样的速度回到原来的位置。每次打开自己的博客我都要来滑几个来回，来当做一种消遣。想想也是无聊。页面的半透明效果和背景真的很搭，整个博客有矩形的地方都弄成圆角。首页文章列表还有隐隐约约的阴影，看起来相当nice。</p>
+<p>这个是所有版本里定制程度最高的，有上百次的commit记录，有同学说它很文艺。当时里面就只有四篇关于Linux内核及内核模块网络通信的博客和一篇抒发感情的文章，这几篇文章是用心的写。在用大屏显示器看它之前，我都没想过要换其它主题。一次偶然，发现背景图片在21英尺显示器上有点小，找不到相同的大图，小图拉伸以后不好看。再加上碰到一个主题不错，就换了。</p>
+<h2 id="v2-0"><a href="#v2-0" class="headerlink" title="v2.0"></a>v2.0</h2><p>这次使用的是<a href="https://github.com/iHavee/iHavee.github.io" target="_blank" rel="external">iHavee</a>的主题，点击去<a href="http://ihavee.github.io/" target="_blank" rel="external">预览</a>。</p>
+<p>在它基础上大致改了一下，修改了分页的位置，模块的位置，首页文章标题下显示的内容等，都是一些小的改动。这个主题总体来说不错，但是有点花哨，当时又在学很多东西，然后博客里面记录了许多算是wiki的东西，只顾着学而没有回头整理，使得博客的内容看起来有点乱。</p>
+<p>这个时候想把博客迁到自己在Digital Ocean的VPS上，改用WordPress，但是看着乱乱的内容便没动，最后在VPS上建了个个人主页。</p>
+<h2 id="v3-0"><a href="#v3-0" class="headerlink" title="v3.0"></a>v3.0</h2><p>过了一段时间，想打理博客了，找了一个简洁的主题<a href="https://github.com/muan/scribble" target="_blank" rel="external">Scribble</a>，给它加上了Katex支持，通过post页首的yaml属性tex值判断是否开启。然后在这个主题下开了另外一个版块，将所有的post过滤为两部分，一部分是计算机相关，另一部分是生活杂记。这时候发现以前写的文章很多内容都是在别的地方可以找到的，自己的独特思考不多，于是都被删掉了。同时萌生了建一个wiki的想法。</p>
+<p>用着用着，发现Katex（包括MathJax）不是太好用，一些数学公式比如有case的无法解析，一篇关于递归问题求解，几种递推公式和进制转换之间联系的博客被搁置，还有一部分原因是在钻研SICP，准备更加深入理解这个问题后再操笔。</p>
+<p>当看到有一同学的博客使用这个主题，心里隐隐的有种能换就换的冲动。</p>
+<h2 id="v4-0"><a href="#v4-0" class="headerlink" title="v4.0"></a>v4.0</h2><p>在微博大V 网络冷眼的推送中，看到一个程序员写的知识管理的文章，他用 simiki 这个工具来管理那些碎片知识。我立马就把自己的wiki建了起来，放在Github的项目gh-pages分支。</p>
+<p>在这之前，看到别人使用 hexo 搭建博客，性能不错，插件很多，主题也比较新，并且一直在更新。看到了一款喜欢的主题：<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">Tranquilpeak</a> ，于是使用了一年多的Jekyll被抛弃，乘上了hexo的快船。</p>
+<p>最终，<a href="http://wiki.carpela.me" target="_blank" rel="external">Wiki</a> 和 <a href="http://blog.carpela.me">Blog</a> 的格局形成。</p>
+<p>好好写作吧！</p>
+]]></content>
+    <summary type="html">
+    <![CDATA[<p>早在2014年10月，我就利用Jekyll在Github上搭起了自己的博客，也写不少东西，然而经过数次变故，博文一篇都没留下，其中很大一部分原因是觉得写的博文质量不高。写博客是个好习惯，学习的同时，记录见解，与诸君分享，加深理解。于是乎，用心写作，从头开始，以此文作为博客新的开端。</p>]]>
+    
+    </summary>
+    
+      <category term="流水帐" scheme="http://blog.carpela.me/tags/%E6%B5%81%E6%B0%B4%E5%B8%90/"/>
+    
+      <category term="杂记" scheme="http://blog.carpela.me/categories/%E6%9D%82%E8%AE%B0/"/>
+    
+  </entry>
+  
+</feed>
