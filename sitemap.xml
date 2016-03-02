@@ -2,8 +2,13 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://blog.carpela.me/2016/02/29/recursion-and-iteration/</loc>
+    <lastmod>2016-03-02T02:06:06.000Z</lastmod>
+  </url>
+  
+  <url>
     <loc>http://blog.carpela.me/2016/02/22/josephus-problem-and-recursion/</loc>
-    <lastmod>2016-02-29T06:04:22.000Z</lastmod>
+    <lastmod>2016-03-01T15:44:08.000Z</lastmod>
   </url>
   
   <url>

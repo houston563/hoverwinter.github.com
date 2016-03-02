@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Carpela's blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.carpela.me/"/>
-  <updated>2016-02-29T06:04:22.000Z</updated>
+  <updated>2016-03-02T02:06:06.000Z</updated>
   <id>http://blog.carpela.me/</id>
   
   <author>
@@ -15,11 +15,54 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[递归与迭代]]></title>
+    <link href="http://blog.carpela.me/2016/02/29/recursion-and-iteration/"/>
+    <id>http://blog.carpela.me/2016/02/29/recursion-and-iteration/</id>
+    <published>2016-02-29T15:44:26.000Z</published>
+    <updated>2016-03-02T02:06:06.000Z</updated>
+    <content type="html"><![CDATA[<!-- TOC -->
+<p>递归到迭代的转化是计算机科学中的一个经典问题，本篇文章简单讨论了是否所有递归都可以转化成迭代，给出了递归向迭代转化的基本方法。并介绍了尾递归，它作为一种特殊形式的递归，许多编译器将其优化为迭代。</p>
+<a id="more"></a>
+<h2 id="u9012_u5F52_u4E0E_u8FED_u4EE3"><a href="#u9012_u5F52_u4E0E_u8FED_u4EE3" class="headerlink" title="递归与迭代"></a>递归与迭代</h2><p>这个词汇大家都不会陌生，简单来说，递归就是函数自己调用自己，同时需要一个结束条件。上一篇关于约瑟夫问题的博客中就用到了(scheme)：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">josephus</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">    	<span class="list">(<span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">remainder</span> n <span class="number">2</span>)</span> <span class="number">0</span>)</span></span><br><span class="line">        	<span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> <span class="list">(<span class="keyword">josephus</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span>)</span>)</span> <span class="number">1</span>)</span>)</span></span><br><span class="line">    	<span class="list">(<span class="keyword">t</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> <span class="list">(<span class="keyword">josephus</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="number">2</span>)</span>)</span>)</span> <span class="number">1</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<p>再比如经典的Fibonacci数列：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">2</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="keyword">t</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">fib</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span> <span class="list">(<span class="keyword">fib</span> <span class="list">(<span class="keyword">-</span> n <span class="number">2</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<p>还有大家所熟知的二叉树遍历。</p>
+<p>而迭代通常是大家所熟知的循环结构，它的内存消耗小，执行速度比递归快。所以讨论是否所有递归都可以以及如何转化成迭代是一个热门的话题。</p>
+<p>从编译器的角度来看，实际上递归的文法是正则文法，而迭代的文法是上下文无关文法，后者的表达能力较强。迭代和递归的相互转换涉及到图灵完备性问题，即你要用迭代来代替递归的话有时必须要手工维护一个递归数据结构。处理上下文无关文法的下推自动机就是比处理正则文法的有限状态自动机多了一个栈，而递归自然将这个数据结构隐藏在了调用栈之中，所以它是一种更高级的抽象手段，相应的效率较低，并且有 stack overflow 的风险。所以，在不使用递归数据结构的情况下，是无法完成这一转化的。</p>
+<h2 id="u5C3E_u9012_u5F52"><a href="#u5C3E_u9012_u5F52" class="headerlink" title="尾递归"></a>尾递归</h2><p>如果在程序结束时只有递归调用的话，就是尾递归，它是很容易转换成迭代的。在scheme等lisp语言中，迭代结构正是通过尾递归表示。ECMAScript 6中明确要求尾递归优化，其它语言比如C，Python编译器不一定会做。并不是所有的递归都可以转成尾递归，比如二叉树的遍历。</p>
+<p>但是像上面给出的递归例子，只需保存递归时的状态信息，就可以完成转换，注意在迭代条件不满足时返回结果。约瑟夫问题的递归中变化的只有n和求得的值，转换成迭代就是：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">josephus-iter</span> n val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">remainder</span> n <span class="number">2</span>)</span> <span class="number">0</span>)</span> <span class="list">(<span class="keyword">josephus-iter</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span> <span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">*</span> val <span class="number">2</span>)</span> <span class="number">1</span>)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">#t</span> <span class="list">(<span class="keyword">josephus-iter</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="number">2</span>)</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> val <span class="number">2</span>)</span> <span class="number">1</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">josephus</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">josephus-iter</span> n <span class="number">1</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<p>而Fibonacci数列需要维持的是n，以及当前迭代次数cur，fib(n-1)和fib(n-2)的值：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; val1: fib(n-2) val2:fib(n-1)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib-iter</span> cur val1 val2 n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">2</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">=</span> cur n)</span> <span class="list">(<span class="keyword">+</span> val1 val2)</span>)</span></span><br><span class="line">		<span class="list">(<span class="keyword">#t</span> <span class="list">(<span class="keyword">fib-iter</span> <span class="list">(<span class="keyword">+</span> cur <span class="number">1</span>)</span> val2 <span class="list">(<span class="keyword">+</span> val1 val2)</span> n)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">fib-iter</span> <span class="number">3</span> <span class="number">1</span> <span class="number">1</span> n)</span>)</span></span><br></pre></td></tr></table></figure>
+<p>使用柯里化(Currying，将多参数的函数转换成单参数函数)的描述如下：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">; currying</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">currying</span> fn cur val1 val2)</span></span><br><span class="line">	<span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">n</span>)</span> <span class="list">(<span class="keyword">fn</span> cur val1 val2 n)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="list">(<span class="keyword">currying</span> fib-iter <span class="number">3</span> <span class="number">1</span> <span class="number">1</span>)</span> <span class="number">5</span>)</span></span><br></pre></td></tr></table></figure>
+<p>一般递归调用是递推阶段栈帧依次入栈，回归阶段依次出栈。但是尾递归由于是函数的最后一步操作，所以不需要保留外层函数的调用记录，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用记录取代外层函数的调用记录就可以了。</p>
+<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
+<li>SICP</li>
+<li>Parsing Techniques</li>
+</ul>
+]]></content>
+    <summary type="html">
+    <![CDATA[<!-- TOC -->
+<p>递归到迭代的转化是计算机科学中的一个经典问题，本篇文章简单讨论了是否所有递归都可以转化成迭代，给出了递归向迭代转化的基本方法。并介绍了尾递归，它作为一种特殊形式的递归，许多编译器将其优化为迭代。</p>]]>
+    
+    </summary>
+    
+      <category term="递归" scheme="http://blog.carpela.me/tags/%E9%80%92%E5%BD%92/"/>
+    
+      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
+    
+      <category term="函数式编程" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[约瑟夫问题：递归的角度]]></title>
     <link href="http://blog.carpela.me/2016/02/22/josephus-problem-and-recursion/"/>
     <id>http://blog.carpela.me/2016/02/22/josephus-problem-and-recursion/</id>
-    <published>2016-02-21T16:00:26.000Z</published>
-    <updated>2016-02-29T06:04:22.000Z</updated>
+    <published>2016-02-22T14:01:26.000Z</published>
+    <updated>2016-03-01T15:44:08.000Z</updated>
     <content type="html"><![CDATA[<!-- TOC -->
 <p>约瑟夫问题(The Josephus Problem)是计算机科学中一个经典问题，编程语言教学中它经常作为练习题。虽然司空见惯，背后却隐藏着玄机。它又如何与进位制转换扯上关系呢？本篇文章从递归的角度来重新解析这个流传近2000年的老问题，并提出一类递推式的快速解法。</p>
 <a id="more"></a>
