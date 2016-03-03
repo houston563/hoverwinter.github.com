@@ -1,0 +1,519 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Role Space">
+    <title>SICP习题解答 - Role Space</title>
+    <meta name="author" content="Hover Winter">
+    
+    
+        <link rel="icon" href="http://blog.carpela.me/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="SICP习题解答">
+<meta property="og:url" content="http://blog.carpela.me/2016/03/02/solution-to-sicp/index.html">
+<meta property="og:site_name" content="Role Space">
+<meta property="og:description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+<meta property="og:updated_time" content="2016-03-03T08:20:38.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="SICP习题解答">
+<meta name="twitter:description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.carpela.me/assets/images/photo.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">Role Space</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/photo.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">Hover Winter</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://wiki.carpela.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">My Wiki</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://stackoverflow.com/users/5816081/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:hoverwinter@gmail.com" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            SICP习题解答
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Mar 02 2016 20:03:08 GMT+0800">
+	
+		    3月 02, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/计算机科学/">计算机科学</a>, <a class="category-link" href="/categories/计算机科学/函数式编程/">函数式编程</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u7AE0_uFF1A_u6784_u9020_u8FC7_u7A0B_u62BD_u8C61"><span class="toc-text">第一章：构造过程抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1__u7A0B_u5E8F_u8BBE_u8BA1_u7684_u57FA_u672C_u5143_u7D20"><span class="toc-text">1.1 程序设计的基本元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-3__u6C42_u8F83_u5927_u4E24_u6570_u548C"><span class="toc-text">ex1.3 求较大两数和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-5__u5E94_u7528_u5E8F_or__u6B63_u5219_u5E8F"><span class="toc-text">ex1.5 应用序 or 正则序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-6_new-if"><span class="toc-text">ex1.6 new-if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-7__u7CBE_u5EA6_u95EE_u9898"><span class="toc-text">ex1.7 精度问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-8__u725B_u987F_u6CD5_u6C42_u7ACB_u65B9_u6839"><span class="toc-text">ex1.8 牛顿法求立方根</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97"><span class="toc-text">1.2 过程与它们所产生的运算</span></a></li></ol></li></ol>
+<p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>
+<a id="more"></a>
+<h2 id="u7B2C_u4E00_u7AE0_uFF1A_u6784_u9020_u8FC7_u7A0B_u62BD_u8C61"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u6784_u9020_u8FC7_u7A0B_u62BD_u8C61" class="headerlink" title="第一章：构造过程抽象"></a>第一章：构造过程抽象</h2><h3 id="1-1__u7A0B_u5E8F_u8BBE_u8BA1_u7684_u57FA_u672C_u5143_u7D20"><a href="#1-1__u7A0B_u5E8F_u8BBE_u8BA1_u7684_u57FA_u672C_u5143_u7D20" class="headerlink" title="1.1 程序设计的基本元素"></a>1.1 程序设计的基本元素</h3><p>基本的抽象：变量以及其环境。复合过程的代换模型以及求值模型：应用序和正则序。过程抽象。内部定义和块结构解决命名空间问题。静态作用域(词法作用域)。</p>
+<h4 id="ex1-3__u6C42_u8F83_u5927_u4E24_u6570_u548C"><a href="#ex1-3__u6C42_u8F83_u5927_u4E24_u6570_u548C" class="headerlink" title="ex1.3 求较大两数和"></a>ex1.3 求较大两数和</h4><p>三个数的和减去最小的那个数即可</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">min</span> a b c)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;</span> a b)</span> <span class="list">(<span class="keyword">&lt;</span> a c)</span>)</span> a)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;</span> b a)</span> <span class="list">(<span class="keyword">&lt;</span> b c)</span>)</span> b)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;</span> c a)</span> <span class="list">(<span class="keyword">&lt;</span> c b)</span>)</span> c)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">sum-of-max-two</span> a b c)</span></span><br><span class="line">	<span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">+</span> a b c)</span> <span class="list">(<span class="keyword">min</span> a b c)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex1-5__u5E94_u7528_u5E8F_or__u6B63_u5219_u5E8F"><a href="#ex1-5__u5E94_u7528_u5E8F_or__u6B63_u5219_u5E8F" class="headerlink" title="ex1.5 应用序 or 正则序"></a>ex1.5 应用序 or 正则序</h4><p>应用序：死循环，试图求值(p)，这是个无穷递归。</p>
+<p>正则序：返回0，(p)不会被求值</p>
+<h4 id="ex1-6_new-if"><a href="#ex1-6_new-if" class="headerlink" title="ex1.6 new-if"></a>ex1.6 new-if</h4><p>new-if 遵循的是普通过程的求值的函数，其所有参数都将被求值，即sqrt-iter过程在没执行cond判断时就会被调用，造成递归层数太大。</p>
+<h4 id="ex1-7__u7CBE_u5EA6_u95EE_u9898"><a href="#ex1-7__u7CBE_u5EA6_u95EE_u9898" class="headerlink" title="ex1.7 精度问题"></a>ex1.7 精度问题</h4><p>很小的数，比如0.00000009，预期为0.0003，求值结果为0.062500478。因为0.01的误差很容易满足。</p>
+<p>很大的数，比如90000000000000000，结果是死循环。</p>
+<p>改进后可以适应：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">good-enough</span>? old new)</span></span><br><span class="line">  <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> old new)</span>)</span> old)</span> <span class="number">0.01</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">sqrt-iter</span> guess x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">good-enough</span>? guess <span class="list">(<span class="keyword">improve</span> guess x)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">improve</span> guess x)</span></span><br><span class="line">    <span class="list">(<span class="keyword">sqrt-iter</span> <span class="list">(<span class="keyword">improve</span> guess x)</span> x)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<p><strong>死循环参考别人解答说是精度无法表示较大的差值，不明白，留以后补充</strong></p>
+<h4 id="ex1-8__u725B_u987F_u6CD5_u6C42_u7ACB_u65B9_u6839"><a href="#ex1-8__u725B_u987F_u6CD5_u6C42_u7ACB_u65B9_u6839" class="headerlink" title="ex1.8 牛顿法求立方根"></a>ex1.8 牛顿法求立方根</h4><p>给定的式子用来判断是否足够近似，测试前后预测值的变化率</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cbrt</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">good-enough</span>? old new)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> new old)</span>)</span> old)</span> <span class="number">0.01</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">/</span> n <span class="list">(<span class="keyword">*</span> guess guess)</span>)</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> guess)</span>)</span> <span class="number">3</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cbrt-iter</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">good-enough</span>? guess <span class="list">(<span class="keyword">improve</span> guess)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">      <span class="list">(<span class="keyword">cbrt-iter</span> <span class="list">(<span class="keyword">improve</span> guess)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cbrt-iter</span> <span class="number">1.0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h3 id="1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97"><a href="#1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97" class="headerlink" title="1.2 过程与它们所产生的运算"></a>1.2 过程与它们所产生的运算</h3>
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/SICP/">SICP</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/29/recursion-and-iteration/" data-tooltip="递归与迭代">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Hover Winter. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/29/recursion-and-iteration/" data-tooltip="递归与迭代">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/02/solution-to-sicp/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/photo.jpg"/>
+        
+            <h4 id="about-card-name">Hover Winter</h4>
+        
+            <h5 id="about-card-bio"><p>A student devote to the computer science</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>2015 Internship in Alibaba</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://blog.carpela.me/2016/03/02/solution-to-sicp/';
+                 
+                    this.page.identifier = '2016/03/02/solution-to-sicp/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'hoverwinter';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','7HEJue7Z2VadUFupdb9W','2.0.0');
+    </script>
+
+
+</html>
