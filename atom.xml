@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Carpela's blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.carpela.me/"/>
-  <updated>2016-03-03T12:43:31.000Z</updated>
+  <updated>2016-03-05T02:50:43.000Z</updated>
   <id>http://blog.carpela.me/</id>
   
   <author>
@@ -15,11 +15,239 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title><![CDATA[《自动机理论，语言和计算导论》笔记]]></title>
+    <link href="http://blog.carpela.me/2016/03/04/note-to-iatlc/"/>
+    <id>http://blog.carpela.me/2016/03/04/note-to-iatlc/</id>
+    <published>2016-03-04T05:35:08.000Z</published>
+    <updated>2016-03-05T02:50:43.000Z</updated>
+    <content type="html"><![CDATA[<!-- TOC -->
+<p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>
+<a id="more"></a>
+<h2 id="Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><a href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C" class="headerlink" title="Chapter 1 自动机：方法与体验"></a>Chapter 1 自动机：方法与体验</h2><p>归纳法与演绎法证明：第一和第二数学归纳法</p>
+<p>判定性问题：计算机能不能解决</p>
+<p>难解性问题：计算机能不能有效解决</p>
+<p>字母表 ∑ 非空有限集合，∑+ 与 ∑* 定义</p>
+<p>串：w 空串 Ɛ</p>
+<p>语言L：L是 ∑* 的子集</p>
+<p>所有问题都能转化为：给定串w，判断是否属于语言L</p>
+<h2 id="Chapter_2__u6709_u7A77_u81EA_u52A8_u673A"><a href="#Chapter_2__u6709_u7A77_u81EA_u52A8_u673A" class="headerlink" title="Chapter 2 有穷自动机"></a>Chapter 2 有穷自动机</h2><p>有穷自动机：有限个状态，五元组(Q,∑,ð,q0,F)</p>
+<p>DFA, NFA, Ɛ-NFA 之间的区别是：</p>
+<p>DFA同时只能处于一个状态，NFA可以处于多个状态，Ɛ-NFA可以自动转移到另一个状态(Ɛ-空转移)</p>
+<h3 id="DFA"><a href="#DFA" class="headerlink" title="DFA"></a>DFA</h3><p>拓展的转移函数 ð’(q,w) = ð(ð’(q’,x),a) w=xa 由习题2.2.2知，a也可以是串</p>
+<p>DFA A 接受的语言 L(A) = { w | ð’(q,w)属于F }</p>
+<hr>
+<h6 id="ex2-2-1"><a href="#ex2-2-1" class="headerlink" title="ex2.2.1"></a>ex2.2.1</h6><p>杠杆和出口共有16种状态，其中上一个球从哪里出去的不影响接下来球的去向，它只由杠杆状态确定。0表示杠杆向左，1表示向右，C/D表示出口，得出：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;*000D</td>
+<td>100C</td>
+<td>011C</td>
+</tr>
+<tr>
+<td>*001D</td>
+<td>100C</td>
+<td>000D</td>
+</tr>
+<tr>
+<td>010C</td>
+<td>110C</td>
+<td>001D</td>
+</tr>
+<tr>
+<td>*010D</td>
+<td>110C</td>
+<td>001D</td>
+</tr>
+<tr>
+<td>011C</td>
+<td>111C</td>
+<td>010D</td>
+</tr>
+<tr>
+<td>100C</td>
+<td>010C</td>
+<td>111C</td>
+</tr>
+<tr>
+<td>*100D</td>
+<td>010C</td>
+<td>111C</td>
+</tr>
+<tr>
+<td>101D</td>
+<td>011C</td>
+<td>100D</td>
+</tr>
+<tr>
+<td>110C</td>
+<td>011C</td>
+<td>100D</td>
+</tr>
+<tr>
+<td>*110D</td>
+<td>011C</td>
+<td>100D</td>
+</tr>
+<tr>
+<td>111C</td>
+<td>001D</td>
+<td>110D</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-2-3"><a href="#ex2-2-3" class="headerlink" title="ex2.2.3"></a>ex2.2.3</h6><p>a. A以1结尾的串，B以10结尾的串，C以00结尾的串</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;A</td>
+<td>B</td>
+<td>A</td>
+</tr>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+<tr>
+<td>*C</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p>b,c 与教材中例子类似</p>
+<h6 id="ex2-2-5"><a href="#ex2-2-5" class="headerlink" title="ex2.2.5"></a>ex2.2.5</h6><p>a. 把所有串长度为0，1，2，3，4，5的各种可能表示为状态（63种）即可</p>
+<p>c. </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>d</td>
+</tr>
+<tr>
+<td>b</td>
+<td>e</td>
+<td>c</td>
+</tr>
+<tr>
+<td>*c</td>
+<td>c</td>
+<td>c</td>
+</tr>
+<tr>
+<td>d</td>
+<td>e</td>
+<td>d</td>
+</tr>
+<tr>
+<td>e</td>
+<td>e</td>
+<td>f</td>
+</tr>
+<tr>
+<td>*f</td>
+<td>e</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-2-6"><a href="#ex2-2-6" class="headerlink" title="ex2.2.6"></a>ex2.2.6</h6><p>a. 先判断以1开头，再根据余数确定状态 2<em>a[+1] mod 5 = ((a mod 5)</em>2 [+1]) mod 5 确定状态转移 共7种状态</p>
+<p>b. 注意到输入0余数不变，输入1相当于加了 2^n 。由于 1 2 4 8 16 32 64 128 mod 5 余数是 1 2 4 3, 1 2 4 3… 容易得出：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr>
+<td>*b</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr>
+<td>c</td>
+<td>c</td>
+<td>d</td>
+</tr>
+<tr>
+<td>d</td>
+<td>d</td>
+<td>e</td>
+</tr>
+<tr>
+<td>e</td>
+<td>e</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-2-10"><a href="#ex2-2-10" class="headerlink" title="ex2.2.10"></a>ex2.2.10</h6><p>A：1的个数为偶数 B：1的个数为奇数</p>
+<h6 id="ex2-2-11"><a href="#ex2-2-11" class="headerlink" title="ex2.2.11"></a>ex2.2.11</h6><p>所有不包含连续两个0的串</p>
+<hr>
+<p>常见DFA总结：</p>
+<ul>
+<li>以xxx开头/结尾：简单</li>
+<li>包含xxx的子串：简单</li>
+<li>倒数第n个是x：简单</li>
+<li>连续n个符号包含m个x：2^(n+1)-1个状态</li>
+<li>a的个数被m整除，b的个数被n整除：m*n个状态 整除都用余数表示状态</li>
+<li>进制转换后整除：有特殊性，观察余数变化规律</li>
+</ul>
+<hr>
+<h3 id="NFA"><a href="#NFA" class="headerlink" title="NFA"></a>NFA</h3>]]></content>
+    <summary type="html">
+    <![CDATA[<!-- TOC -->
+<p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>]]>
+    
+    </summary>
+    
+      <category term="形式语言" scheme="http://blog.carpela.me/tags/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80/"/>
+    
+      <category term="自动机理论" scheme="http://blog.carpela.me/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%90%86%E8%AE%BA/"/>
+    
+      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
+    
+      <category term="计算理论" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/"/>
+    
+  </entry>
+  
+  <entry>
     <title><![CDATA[SICP习题解答]]></title>
     <link href="http://blog.carpela.me/2016/03/02/solution-to-sicp/"/>
     <id>http://blog.carpela.me/2016/03/02/solution-to-sicp/</id>
     <published>2016-03-02T12:03:08.000Z</published>
-    <updated>2016-03-03T12:43:31.000Z</updated>
+    <updated>2016-03-08T12:07:34.000Z</updated>
     <content type="html"><![CDATA[<!-- TOC -->
 <p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>
 <a id="more"></a>
@@ -36,7 +264,11 @@
 <p><strong>死循环参考别人解答说是精度无法表示较大的差值，不明白，留以后补充</strong></p>
 <h4 id="ex1-8__u725B_u987F_u6CD5_u6C42_u7ACB_u65B9_u6839"><a href="#ex1-8__u725B_u987F_u6CD5_u6C42_u7ACB_u65B9_u6839" class="headerlink" title="ex1.8 牛顿法求立方根"></a>ex1.8 牛顿法求立方根</h4><p>给定的式子用来判断是否足够近似，测试前后预测值的变化率</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cbrt</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">good-enough</span>? old new)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> new old)</span>)</span> old)</span> <span class="number">0.01</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">/</span> n <span class="list">(<span class="keyword">*</span> guess guess)</span>)</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> guess)</span>)</span> <span class="number">3</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cbrt-iter</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">good-enough</span>? guess <span class="list">(<span class="keyword">improve</span> guess)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">      <span class="list">(<span class="keyword">cbrt-iter</span> <span class="list">(<span class="keyword">improve</span> guess)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cbrt-iter</span> <span class="number">1.0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<h3 id="1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97"><a href="#1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97" class="headerlink" title="1.2 过程与它们所产生的运算"></a>1.2 过程与它们所产生的运算</h3><p>递归计算过程与迭代计算过程。scheme解释器尾递归，用其表示迭代。</p>
+<h3 id="1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97"><a href="#1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97" class="headerlink" title="1.2 过程与它们所产生的运算"></a>1.2 过程与它们所产生的运算</h3><p>递归计算过程与迭代计算过程。scheme解释器尾递归，用其表示迭代。一般来说，树形递归步骤数增长阶正比于树中节点数，空间增长阶正比于树的深度。快速求幂log(n)的算法。迭代算法设计要点：不变量。fibonacci数列的对数步算法。</p>
+<p>lame定理：如果欧几里得算法需要用k步计算出一对整数的GCD，那么这对数中较小的那个数必定小于或等于第k个fibonacci数 -&gt; GCD的计算增长阶是 theta(log n)</p>
+<p>费马小定理：如果n是一个素数，a是小于n的任意正整数，那么a的n次方与a模n同余</p>
+<p>费马检查确定素数</p>
+<p>scheme bool true/false #t/#f</p>
 <h4 id="ex1-9__u52A0_u6CD5_u7684_u8FED_u4EE3_u548C_u9012_u5F52"><a href="#ex1-9__u52A0_u6CD5_u7684_u8FED_u4EE3_u548C_u9012_u5F52" class="headerlink" title="ex1.9 加法的迭代和递归"></a>ex1.9 加法的迭代和递归</h4><p>第一个是递归，第二个是迭代</p>
 <h4 id="ex1-10_Ackermann_u51FD_u6570"><a href="#ex1-10_Ackermann_u51FD_u6570" class="headerlink" title="ex1.10 Ackermann函数"></a>ex1.10 <a href="https://en.wikipedia.org/wiki/Ackermann_function" target="_blank" rel="external">Ackermann函数</a></h4><p>f(n) = 2n</p>
 <p>g(n) = 2^n</p>
@@ -50,6 +282,59 @@
 <p>改用迭代：</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fact-iter</span> count val)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> count <span class="number">0</span>)</span> val)</span></span><br><span class="line">		<span class="list">(<span class="keyword">fact-iter</span> <span class="list">(<span class="keyword">-</span> count <span class="number">1</span>)</span> <span class="list">(<span class="keyword">*</span> count val)</span>)</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fact</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">fact-iter</span> n <span class="number">1</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">psc-iter</span> n r)</span></span><br><span class="line">	<span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">fact</span> n)</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">fact</span> r)</span> <span class="list">(<span class="keyword">fact</span> <span class="list">(<span class="keyword">-</span> n r)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
 <p><strong>注意：这种方法不是psc过程严格对应的迭代形式，更优的解法有待进一步发掘</strong></p>
+<h4 id="ex1-14__u6362_u96F6_u94B1_u590D_u6742_u5EA6_u5206_u6790"><a href="#ex1-14__u6362_u96F6_u94B1_u590D_u6742_u5EA6_u5206_u6790" class="headerlink" title="ex1.14 换零钱复杂度分析"></a>ex1.14 换零钱复杂度分析</h4><p>树的最大深度是 (n,m) -&gt; (n,1) -&gt; (0,1) 即 空间增长阶 theta(n+m)</p>
+<p><strong>步数增长阶待求</strong></p>
+<h4 id="ex1-15__u725B_u987F_u8FED_u4EE3_u590D_u6742_u5EA6"><a href="#ex1-15__u725B_u987F_u8FED_u4EE3_u590D_u6742_u5EA6" class="headerlink" title="ex1.15 牛顿迭代复杂度"></a>ex1.15 牛顿迭代复杂度</h4><p>p调用了5次， a/3^n &lt; 0.1 得到 n &gt; log3(10*a)，即增长的阶是 log(a)</p>
+<h4 id="ex1-16__u5E42_u8FED_u4EE3"><a href="#ex1-16__u5E42_u8FED_u4EE3" class="headerlink" title="ex1.16 幂迭代"></a>ex1.16 幂迭代</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt-iter</span> b n val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">0</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? n)</span> <span class="list">(<span class="keyword">expt-iter</span> <span class="list">(<span class="keyword">*</span> b b)</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span> val)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">expt-iter</span> b <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="list">(<span class="keyword">*</span> val b)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt</span> b n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">expt-iter</span> b n <span class="number">1</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex1-17__u5FEB_u901F_u4E58_u6CD5"><a href="#ex1-17__u5FEB_u901F_u4E58_u6CD5" class="headerlink" title="ex1.17 快速乘法"></a>ex1.17 快速乘法</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fast-multi</span> a b)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> b <span class="number">1</span>)</span> a)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? b)</span> <span class="list">(<span class="keyword">fast-multi</span> <span class="list">(<span class="keyword">double</span> a)</span> <span class="list">(<span class="keyword">halve</span> b)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">+</span> a <span class="list">(<span class="keyword">fast-multi</span> a <span class="list">(<span class="keyword">-</span> b <span class="number">1</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex1-18__u5FEB_u901F_u4E58_u6CD5_u8FED_u4EE3"><a href="#ex1-18__u5FEB_u901F_u4E58_u6CD5_u8FED_u4EE3" class="headerlink" title="ex1.18 快速乘法迭代"></a>ex1.18 快速乘法迭代</h4><p>不变式是 a*b+val，两种状态转换： </p>
+<ul>
+<li>(a*2) * (b/2) + val</li>
+<li>a * (b-1) + (val+a)</li>
+</ul>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">multi-iter</span> a b val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> b <span class="number">0</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? b)</span> <span class="list">(<span class="keyword">multi-iter</span> <span class="list">(<span class="keyword">double</span> a)</span> <span class="list">(<span class="keyword">halve</span> b)</span> val)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">multi-iter</span> a <span class="list">(<span class="keyword">-</span> b <span class="number">1</span>)</span> <span class="list">(<span class="keyword">+</span> val a)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">multi</span> a b)</span></span><br><span class="line">  <span class="list">(<span class="keyword">multi-iter</span> a b <span class="number">0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex1-19__u5BF9_u6570_u7684Fibonacci_u8BA1_u7B97"><a href="#ex1-19__u5BF9_u6570_u7684Fibonacci_u8BA1_u7B97" class="headerlink" title="ex1.19 对数的Fibonacci计算"></a>ex1.19 对数的Fibonacci计算</h4><p>p &lt;- p^2 + q^2</p>
+<p>q &lt;- q^2 + 2pq</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib-iter</span> a b p q n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">0</span>)</span> b)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? n)</span> <span class="list">(<span class="keyword">fib-iter</span> a b <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> p p)</span> <span class="list">(<span class="keyword">*</span> q q)</span>)</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> q q)</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> p q)</span>)</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">fib-iter</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> a p)</span> <span class="list">(<span class="keyword">*</span> q <span class="list">(<span class="keyword">+</span> a b)</span>)</span>)</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> b p)</span> <span class="list">(<span class="keyword">*</span> a q)</span>)</span> p q <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">fib-iter</span> <span class="number">1</span> <span class="number">0</span> <span class="number">0</span> <span class="number">1</span> n)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex1-20__u6C42_u503C_u6A21_u578B_u4E0E_u8BA1_u7B97_u8FC7_u7A0B"><a href="#ex1-20__u6C42_u503C_u6A21_u578B_u4E0E_u8BA1_u7B97_u8FC7_u7A0B" class="headerlink" title="ex1.20 求值模型与计算过程"></a>ex1.20 求值模型与计算过程</h4><table>
+<thead>
+<tr>
+<th>if-cond</th>
+<th style="text-align:center">procedure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td></td>
+<td style="text-align:center">(gcd 206 40)</td>
+</tr>
+<tr>
+<td>40!=0</td>
+<td style="text-align:center">(gcd 40 (r 206 40))</td>
+</tr>
+<tr>
+<td>(r 206 40)=6</td>
+<td style="text-align:center">(gcd (r 206 40) (r 40 (r 206 40)))</td>
+</tr>
+<tr>
+<td>(r 40 (r 206 40))=4</td>
+<td style="text-align:center">(gcd (r 40 (r 206 40)) (r (r 206 40) (r 40 (r 206 40))))</td>
+</tr>
+<tr>
+<td>(r (r 206 40) (r 40 (r 206 40)))=2</td>
+<td style="text-align:center">(gcd (r (r 206 40) (r 40 (r 206 40))) (r (r 40 (r 206 40)) (r (r 206 40) (r 40 (r 206 40)))))</td>
+</tr>
+<tr>
+<td>(r (r 40 (r 206 40)) (r (r 206 40) (r 40 (r 206 40))))=0</td>
+<td style="text-align:center">(r (r 206 40) (r 40 (r 206 40)))</td>
+</tr>
+</tbody>
+</table>
+<p>所以remainder调用次数是18次，应用序是4次</p>
+<h4 id="ex1-23__u53BB_u9664_u65E0_u7528_u68C0_u67E5"><a href="#ex1-23__u53BB_u9664_u65E0_u7528_u68C0_u67E5" class="headerlink" title="ex1.23 去除无用检查"></a>ex1.23 去除无用检查</h4><p>约为1.5倍，next的过程调用需要一定时间</p>
+<h4 id="ex1-25__u53E6_u4E00_u79CDexpmod"><a href="#ex1-25__u53E6_u4E00_u79CDexpmod" class="headerlink" title="ex1.25 另一种expmod"></a>ex1.25 另一种expmod</h4><p>原则上可行，但是当遇到 base^exp 非常大时，scheme无法表示，就会出现问题。而正文部分的expmod中间结果始终小于 m*m</p>
+<h4 id="ex1-26__u7CDF_u7CD5_u5199_u6CD5_u7684expmod"><a href="#ex1-26__u7CDF_u7CD5_u5199_u6CD5_u7684expmod" class="headerlink" title="ex1.26 糟糕写法的expmod"></a>ex1.26 糟糕写法的expmod</h4><p>(expmod base (/ exp 2) m) 被计算两次，形成树形递归，时间复杂度变成 theta(n)</p>
+<h4 id="ex1-28_Miller-Rabin_u68C0_u67E5"><a href="#ex1-28_Miller-Rabin_u68C0_u67E5" class="headerlink" title="ex1.28 Miller-Rabin检查"></a>ex1.28 Miller-Rabin检查</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">square</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">*</span> n n)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expmod</span> b e m)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">square-mod-check</span> x)</span></span><br><span class="line">    <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">remainder</span> <span class="list">(<span class="keyword">*</span> x x)</span> m)</span> <span class="number">1</span>)</span> <span class="list">(<span class="keyword">not</span> <span class="list">(<span class="keyword">=</span> x <span class="number">1</span>)</span>)</span> <span class="list">(<span class="keyword">not</span> <span class="list">(<span class="keyword">=</span> x <span class="list">(<span class="keyword">-</span> m <span class="number">1</span>)</span>)</span>)</span>)</span> <span class="number">0</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">remainder</span> <span class="list">(<span class="keyword">*</span> x x)</span> m)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> e <span class="number">0</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? e)</span> <span class="list">(<span class="keyword">square-mod-check</span> <span class="list">(<span class="keyword">expmod</span> b <span class="list">(<span class="keyword">/</span> e <span class="number">2</span>)</span> m)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">remainder</span> <span class="list">(<span class="keyword">*</span> b <span class="list">(<span class="keyword">expmod</span> b <span class="list">(<span class="keyword">-</span> e <span class="number">1</span>)</span> m)</span>)</span> m)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">miller-rabin-test</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">try-it</span> a)</span></span><br><span class="line">    <span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">expmod</span> a <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> n)</span> <span class="number">1</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">try-it</span> <span class="list">(<span class="keyword">+</span> <span class="number">1</span> <span class="list">(<span class="keyword">random</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fast-prime</span>? n times)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> times <span class="number">0</span>)</span> true)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">miller-rabin-test</span> n)</span> <span class="list">(<span class="keyword">fast-prime</span>? n <span class="list">(<span class="keyword">-</span> times <span class="number">1</span>)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> false)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
 ]]></content>
     <summary type="html">
     <![CDATA[<!-- TOC -->
@@ -70,7 +355,7 @@
     <link href="http://blog.carpela.me/2016/02/29/recursion-and-iteration/"/>
     <id>http://blog.carpela.me/2016/02/29/recursion-and-iteration/</id>
     <published>2016-02-29T15:44:26.000Z</published>
-    <updated>2016-03-03T09:05:55.000Z</updated>
+    <updated>2016-03-05T04:58:08.000Z</updated>
     <content type="html"><![CDATA[<!-- TOC -->
 <p>递归到迭代的转化是计算机科学中的一个经典问题，本篇文章简单讨论了是否所有递归都可以转化成迭代，给出了递归向迭代转化的基本方法。并介绍了尾递归，它作为一种特殊形式的递归，许多编译器将其优化为迭代。</p>
 <a id="more"></a>
@@ -79,7 +364,7 @@
 <p>再比如经典的Fibonacci数列：</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">2</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">fib</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span> <span class="list">(<span class="keyword">fib</span> <span class="list">(<span class="keyword">-</span> n <span class="number">2</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
 <p>还有大家所熟知的二叉树遍历。</p>
-<p>而迭代通常是大家所熟知的循环结构，它的内存消耗小，执行速度比递归快。所以讨论是否所有递归都可以以及如何转化成迭代是一个热门的话题。</p>
+<p>而迭代通常是大家所熟知的循环结构，它的内存消耗小，执行速度比递归快。所以讨论是否所有递归都可以以及如何转化成迭代是一个热门的话题。 递归必须将消息（结果）传回调用者， 而迭代则完全不需要。</p>
 <p>从编译器的角度来看，实际上递归的文法是正则文法，而迭代的文法是上下文无关文法，后者的表达能力较强。迭代和递归的相互转换涉及到图灵完备性问题，即你要用迭代来代替递归的话有时必须要手工维护一个递归数据结构。处理上下文无关文法的下推自动机就是比处理正则文法的有限状态自动机多了一个栈，而递归自然将这个数据结构隐藏在了调用栈之中，所以它是一种更高级的抽象手段，相应的效率较低，并且有 stack overflow 的风险。所以，在不使用递归数据结构的情况下，是无法完成这一转化的。</p>
 <h2 id="u5C3E_u9012_u5F52"><a href="#u5C3E_u9012_u5F52" class="headerlink" title="尾递归"></a>尾递归</h2><p>如果在程序结束时只有递归调用的话，就是尾递归，它是很容易转换成迭代的。在scheme等lisp语言中，迭代结构正是通过尾递归表示。ECMAScript 6中明确要求尾递归优化，其它语言比如C，Python编译器不一定会做。并不是所有的递归都可以转成尾递归，比如二叉树的遍历。</p>
 <p>但是像上面给出的递归例子，只需保存递归时的状态信息，就可以完成转换，注意在迭代条件不满足时返回结果。约瑟夫问题的递归中变化的只有n和求得的值，转换成迭代就是：</p>

@@ -1,0 +1,708 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Role Space">
+    <title>《自动机理论，语言和计算导论》笔记 - Role Space</title>
+    <meta name="author" content="Hover Winter">
+    
+    
+        <link rel="icon" href="http://blog.carpela.me/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="&amp;lt;!-- TOC --&amp;gt;
+Introduction to Automata Theory, Languages, and Computation 的笔记">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="《自动机理论，语言和计算导论》笔记">
+<meta property="og:url" content="http://blog.carpela.me/2016/03/04/note-to-iatlc/index.html">
+<meta property="og:site_name" content="Role Space">
+<meta property="og:description" content="&amp;lt;!-- TOC --&amp;gt;
+Introduction to Automata Theory, Languages, and Computation 的笔记">
+<meta property="og:updated_time" content="2016-03-05T02:50:43.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《自动机理论，语言和计算导论》笔记">
+<meta name="twitter:description" content="&amp;lt;!-- TOC --&amp;gt;
+Introduction to Automata Theory, Languages, and Computation 的笔记">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.carpela.me/assets/images/photo.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">Role Space</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/photo.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">Hover Winter</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://wiki.carpela.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">My Wiki</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://stackoverflow.com/users/5816081/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:hoverwinter@gmail.com" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            《自动机理论，语言和计算导论》笔记
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Fri Mar 04 2016 13:35:08 GMT+0800">
+	
+		    3月 04, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/计算机科学/">计算机科学</a>, <a class="category-link" href="/categories/计算机科学/计算理论/">计算理论</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><span class="toc-text">Chapter 1 自动机：方法与体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter_2__u6709_u7A77_u81EA_u52A8_u673A"><span class="toc-text">Chapter 2 有穷自动机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFA"><span class="toc-text">DFA</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-1"><span class="toc-text">ex2.2.1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-3"><span class="toc-text">ex2.2.3</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-5"><span class="toc-text">ex2.2.5</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-6"><span class="toc-text">ex2.2.6</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-10"><span class="toc-text">ex2.2.10</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-11"><span class="toc-text">ex2.2.11</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NFA"><span class="toc-text">NFA</span></a></li></ol></li></ol>
+<p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>
+<a id="more"></a>
+<h2 id="Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><a href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C" class="headerlink" title="Chapter 1 自动机：方法与体验"></a>Chapter 1 自动机：方法与体验</h2><p>归纳法与演绎法证明：第一和第二数学归纳法</p>
+<p>判定性问题：计算机能不能解决</p>
+<p>难解性问题：计算机能不能有效解决</p>
+<p>字母表 ∑ 非空有限集合，∑+ 与 ∑* 定义</p>
+<p>串：w 空串 Ɛ</p>
+<p>语言L：L是 ∑* 的子集</p>
+<p>所有问题都能转化为：给定串w，判断是否属于语言L</p>
+<h2 id="Chapter_2__u6709_u7A77_u81EA_u52A8_u673A"><a href="#Chapter_2__u6709_u7A77_u81EA_u52A8_u673A" class="headerlink" title="Chapter 2 有穷自动机"></a>Chapter 2 有穷自动机</h2><p>有穷自动机：有限个状态，五元组(Q,∑,ð,q0,F)</p>
+<p>DFA, NFA, Ɛ-NFA 之间的区别是：</p>
+<p>DFA同时只能处于一个状态，NFA可以处于多个状态，Ɛ-NFA可以自动转移到另一个状态(Ɛ-空转移)</p>
+<h3 id="DFA"><a href="#DFA" class="headerlink" title="DFA"></a>DFA</h3><p>拓展的转移函数 ð’(q,w) = ð(ð’(q’,x),a) w=xa 由习题2.2.2知，a也可以是串</p>
+<p>DFA A 接受的语言 L(A) = { w | ð’(q,w)属于F }</p>
+<hr>
+<h6 id="ex2-2-1"><a href="#ex2-2-1" class="headerlink" title="ex2.2.1"></a>ex2.2.1</h6><p>杠杆和出口共有16种状态，其中上一个球从哪里出去的不影响接下来球的去向，它只由杠杆状态确定。0表示杠杆向左，1表示向右，C/D表示出口，得出：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>A</th>
+<th>B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;*000D</td>
+<td>100C</td>
+<td>011C</td>
+</tr>
+<tr>
+<td>*001D</td>
+<td>100C</td>
+<td>000D</td>
+</tr>
+<tr>
+<td>010C</td>
+<td>110C</td>
+<td>001D</td>
+</tr>
+<tr>
+<td>*010D</td>
+<td>110C</td>
+<td>001D</td>
+</tr>
+<tr>
+<td>011C</td>
+<td>111C</td>
+<td>010D</td>
+</tr>
+<tr>
+<td>100C</td>
+<td>010C</td>
+<td>111C</td>
+</tr>
+<tr>
+<td>*100D</td>
+<td>010C</td>
+<td>111C</td>
+</tr>
+<tr>
+<td>101D</td>
+<td>011C</td>
+<td>100D</td>
+</tr>
+<tr>
+<td>110C</td>
+<td>011C</td>
+<td>100D</td>
+</tr>
+<tr>
+<td>*110D</td>
+<td>011C</td>
+<td>100D</td>
+</tr>
+<tr>
+<td>111C</td>
+<td>001D</td>
+<td>110D</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-2-3"><a href="#ex2-2-3" class="headerlink" title="ex2.2.3"></a>ex2.2.3</h6><p>a. A以1结尾的串，B以10结尾的串，C以00结尾的串</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;A</td>
+<td>B</td>
+<td>A</td>
+</tr>
+<tr>
+<td>B</td>
+<td>C</td>
+<td>A</td>
+</tr>
+<tr>
+<td>*C</td>
+<td>C</td>
+<td>A</td>
+</tr>
+</tbody>
+</table>
+<p>b,c 与教材中例子类似</p>
+<h6 id="ex2-2-5"><a href="#ex2-2-5" class="headerlink" title="ex2.2.5"></a>ex2.2.5</h6><p>a. 把所有串长度为0，1，2，3，4，5的各种可能表示为状态（63种）即可</p>
+<p>c. </p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>d</td>
+</tr>
+<tr>
+<td>b</td>
+<td>e</td>
+<td>c</td>
+</tr>
+<tr>
+<td>*c</td>
+<td>c</td>
+<td>c</td>
+</tr>
+<tr>
+<td>d</td>
+<td>e</td>
+<td>d</td>
+</tr>
+<tr>
+<td>e</td>
+<td>e</td>
+<td>f</td>
+</tr>
+<tr>
+<td>*f</td>
+<td>e</td>
+<td>d</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-2-6"><a href="#ex2-2-6" class="headerlink" title="ex2.2.6"></a>ex2.2.6</h6><p>a. 先判断以1开头，再根据余数确定状态 2<em>a[+1] mod 5 = ((a mod 5)</em>2 [+1]) mod 5 确定状态转移 共7种状态</p>
+<p>b. 注意到输入0余数不变，输入1相当于加了 2^n 。由于 1 2 4 8 16 32 64 128 mod 5 余数是 1 2 4 3, 1 2 4 3… 容易得出：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>a</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr>
+<td>*b</td>
+<td>b</td>
+<td>c</td>
+</tr>
+<tr>
+<td>c</td>
+<td>c</td>
+<td>d</td>
+</tr>
+<tr>
+<td>d</td>
+<td>d</td>
+<td>e</td>
+</tr>
+<tr>
+<td>e</td>
+<td>e</td>
+<td>b</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-2-10"><a href="#ex2-2-10" class="headerlink" title="ex2.2.10"></a>ex2.2.10</h6><p>A：1的个数为偶数 B：1的个数为奇数</p>
+<h6 id="ex2-2-11"><a href="#ex2-2-11" class="headerlink" title="ex2.2.11"></a>ex2.2.11</h6><p>所有不包含连续两个0的串</p>
+<hr>
+<p>常见DFA总结：</p>
+<ul>
+<li>以xxx开头/结尾：简单</li>
+<li>包含xxx的子串：简单</li>
+<li>倒数第n个是x：简单</li>
+<li>连续n个符号包含m个x：2^(n+1)-1个状态</li>
+<li>a的个数被m整除，b的个数被n整除：m*n个状态 整除都用余数表示状态</li>
+<li>进制转换后整除：有特殊性，观察余数变化规律</li>
+</ul>
+<hr>
+<h3 id="NFA"><a href="#NFA" class="headerlink" title="NFA"></a>NFA</h3>
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/形式语言/">形式语言</a> <a class="tag tag--primary tag--small t-link" href="/tags/自动机理论/">自动机理论</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/02/solution-to-sicp/" data-tooltip="SICP习题解答">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Hover Winter. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/02/solution-to-sicp/" data-tooltip="SICP习题解答">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/04/note-to-iatlc/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/photo.jpg"/>
+        
+            <h4 id="about-card-name">Hover Winter</h4>
+        
+            <h5 id="about-card-bio"><p>A student devote to the computer science</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>2015 Internship in Alibaba</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://blog.carpela.me/2016/03/04/note-to-iatlc/';
+                 
+                    this.page.identifier = '2016/03/04/note-to-iatlc/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'hoverwinter';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','7HEJue7Z2VadUFupdb9W','2.0.0');
+    </script>
+
+
+</html>
