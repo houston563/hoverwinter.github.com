@@ -23,7 +23,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
 <meta property="og:site_name" content="Role Space">
 <meta property="og:description" content="&amp;lt;!-- TOC --&amp;gt;
 Introduction to Automata Theory, Languages, and Computation 的笔记">
-<meta property="og:updated_time" content="2016-03-05T02:50:43.000Z">
+<meta property="og:updated_time" content="2016-03-10T12:55:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="《自动机理论，语言和计算导论》笔记">
 <meta name="twitter:description" content="&amp;lt;!-- TOC --&amp;gt;
@@ -251,7 +251,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
     
     <div class="post-content markdown" itemprop="articleBody">
         <div class="main-content-wrap">
-            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><span class="toc-text">Chapter 1 自动机：方法与体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter_2__u6709_u7A77_u81EA_u52A8_u673A"><span class="toc-text">Chapter 2 有穷自动机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFA"><span class="toc-text">DFA</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-1"><span class="toc-text">ex2.2.1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-3"><span class="toc-text">ex2.2.3</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-5"><span class="toc-text">ex2.2.5</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-6"><span class="toc-text">ex2.2.6</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-10"><span class="toc-text">ex2.2.10</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-11"><span class="toc-text">ex2.2.11</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NFA"><span class="toc-text">NFA</span></a></li></ol></li></ol>
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><span class="toc-text">Chapter 1 自动机：方法与体验</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#Chapter_2__u6709_u7A77_u81EA_u52A8_u673A"><span class="toc-text">Chapter 2 有穷自动机</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#DFA"><span class="toc-text">DFA</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-1"><span class="toc-text">ex2.2.1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-3"><span class="toc-text">ex2.2.3</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-5"><span class="toc-text">ex2.2.5</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-6"><span class="toc-text">ex2.2.6</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-10"><span class="toc-text">ex2.2.10</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-2-11"><span class="toc-text">ex2.2.11</span></a></li></ol></li></ol></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#NFA"><span class="toc-text">NFA</span></a><ol class="toc-child"><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-3-1"><span class="toc-text">ex2.3.1</span></a></li><li class="toc-item toc-level-6"><a class="toc-link" href="#ex2-3-3"><span class="toc-text">ex2.3.3</span></a></li></ol></li></ol></li></ol></li></ol></li></ol>
 <p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>
 <a id="more"></a>
 <h2 id="Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><a href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C" class="headerlink" title="Chapter 1 自动机：方法与体验"></a>Chapter 1 自动机：方法与体验</h2><p>归纳法与演绎法证明：第一和第二数学归纳法</p>
@@ -374,7 +374,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
 </thead>
 <tbody>
 <tr>
-<td>a</td>
+<td>-&gt;a</td>
 <td>b</td>
 <td>d</td>
 </tr>
@@ -417,7 +417,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
 </thead>
 <tbody>
 <tr>
-<td>a</td>
+<td>-&gt;a</td>
 <td>b</td>
 <td>c</td>
 </tr>
@@ -456,7 +456,97 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
 <li>进制转换后整除：有特殊性，观察余数变化规律</li>
 </ul>
 <hr>
-<h3 id="NFA"><a href="#NFA" class="headerlink" title="NFA"></a>NFA</h3>
+<h3 id="NFA"><a href="#NFA" class="headerlink" title="NFA"></a>NFA</h3><p>ð(q,a) = S 是Q的子集合</p>
+<p>接受的语言： {w|ð(q0,w)与F的交集不为空}</p>
+<p>NFA-&gt;DFA 子集构造法 以及惰性求值减少计算量</p>
+<p>子集构造后的 L(D) = L(N) 的证明：对w进行归纳</p>
+<p>一种n个状态转换成DFA至少2^n个状态的NFA的构造： 鸽巢原理</p>
+<hr>
+<h6 id="ex2-3-1"><a href="#ex2-3-1" class="headerlink" title="ex2.3.1"></a>ex2.3.1</h6><table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;{p}</td>
+<td>{p,q}</td>
+<td>{p}</td>
+</tr>
+<tr>
+<td>{p,q}</td>
+<td>{p,q,r}</td>
+<td>{p,r}</td>
+</tr>
+<tr>
+<td>{p,r}</td>
+<td>{p,q,s}</td>
+<td>{p}</td>
+</tr>
+<tr>
+<td>{p,q,r}</td>
+<td>{p,q,r,s}</td>
+<td>{p,r}</td>
+</tr>
+<tr>
+<td>*{p,q,r,s}</td>
+<td>{p,q,r,s}</td>
+<td>{p,r}</td>
+</tr>
+<tr>
+<td>*{p,r,s}</td>
+<td>{p,q,s}</td>
+<td>{p,s}</td>
+</tr>
+<tr>
+<td>*{p,q,s}</td>
+<td>{p,q,r,s}</td>
+<td>{p,r,s}</td>
+</tr>
+<tr>
+<td>*{p,s}</td>
+<td>{p,q,s}</td>
+<td>{p,s}</td>
+</tr>
+</tbody>
+</table>
+<h6 id="ex2-3-3"><a href="#ex2-3-3" class="headerlink" title="ex2.3.3"></a>ex2.3.3</h6><table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;{p}</td>
+<td>{p,q}</td>
+<td>{p}</td>
+</tr>
+<tr>
+<td>{p,q}</td>
+<td>{p,q,r,s}</td>
+<td>{p,t}</td>
+</tr>
+<tr>
+<td>*{p,t}</td>
+<td>{p,q}</td>
+<td>{p}</td>
+</tr>
+<tr>
+<td>*{p,q,r,s}</td>
+<td>{p,q,r,s}</td>
+<td>{p,t}</td>
+</tr>
+</tbody>
+</table>
+<p>所有以00或01结尾的0,1串</p>
+<p>######</p>
+
             
                 
 
@@ -477,7 +567,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/10/solution-to-sicp-part-2/"  data-tooltip="《SICP》习题解答及笔记：第二章">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -485,7 +575,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/02/solution-to-sicp/" data-tooltip="SICP习题解答">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/02/solution-to-sicp-part-1/" data-tooltip="《SICP》习题解答及笔记：第一章">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>
@@ -558,7 +648,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
         <ul class="post-actions post-action-nav">
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--disabled">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/10/solution-to-sicp-part-2/"  data-tooltip="《SICP》习题解答及笔记：第二章">
                 
                     <i class="fa fa-angle-left"></i>
                     <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
@@ -566,7 +656,7 @@ Introduction to Automata Theory, Languages, and Computation 的笔记">
             </li>
             <li class="post-action">
                 
-                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/02/solution-to-sicp/" data-tooltip="SICP习题解答">
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/02/solution-to-sicp-part-1/" data-tooltip="《SICP》习题解答及笔记：第一章">
                 
                     <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
                     <i class="fa fa-angle-right"></i>

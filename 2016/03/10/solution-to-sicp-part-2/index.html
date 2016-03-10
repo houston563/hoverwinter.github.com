@@ -1,0 +1,520 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Role Space">
+    <title>《SICP》习题解答及笔记：第二章 - Role Space</title>
+    <meta name="author" content="Hover Winter">
+    
+    
+        <link rel="icon" href="http://blog.carpela.me/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="《SICP》习题解答及笔记：第二章">
+<meta property="og:url" content="http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/index.html">
+<meta property="og:site_name" content="Role Space">
+<meta property="og:description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+<meta property="og:updated_time" content="2016-03-10T11:26:29.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《SICP》习题解答及笔记：第二章">
+<meta name="twitter:description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.carpela.me/assets/images/photo.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">Role Space</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/photo.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">Hover Winter</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://wiki.carpela.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">My Wiki</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://stackoverflow.com/users/5816081/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:hoverwinter@gmail.com" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            《SICP》习题解答及笔记：第二章
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Thu Mar 10 2016 13:39:23 GMT+0800">
+	
+		    3月 10, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/计算机科学/">计算机科学</a>, <a class="category-link" href="/categories/计算机科学/函数式编程/">函数式编程</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E8C_u7AE0__u6784_u9020_u6570_u636E_u62BD_u8C61"><span class="toc-text">第二章 构造数据抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1__u6570_u636E_u62BD_u8C61_u5BFC_u5F15"><span class="toc-text">2.1 数据抽象导引</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ex2-1__u89C4_u8303_u5316make-rat"><span class="toc-text">ex2.1 规范化make-rat</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex2-2__u7EBF_u6BB5_u8868_u793A"><span class="toc-text">ex2.2 线段表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex2-3__u5E73_u9762_u77E9_u5F62_u7684_u8868_u793A"><span class="toc-text">ex2.3 平面矩形的表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex2-4__u5E8F_u5BF9_u7684_u53E6_u4E00_u79CD_u8FC7_u7A0B_u6027_u8868_u793A"><span class="toc-text">ex2.4 序对的另一种过程性表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex2-5__u5E8F_u5BF9_u7684_u6574_u6570_u8868_u793A"><span class="toc-text">ex2.5 序对的整数表示</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex2-6_Church_u8BA1_u6570"><span class="toc-text">ex2.6 Church计数</span></a></li></ol></li></ol></li></ol>
+<p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>
+<a id="more"></a>
+<h2 id="u7B2C_u4E8C_u7AE0__u6784_u9020_u6570_u636E_u62BD_u8C61"><a href="#u7B2C_u4E8C_u7AE0__u6784_u9020_u6570_u636E_u62BD_u8C61" class="headerlink" title="第二章 构造数据抽象"></a>第二章 构造数据抽象</h2><p>数据总是可以表示为一组构造和选择函数，并且使这些过程成为一套合法的表示所需要满足的条件。数据抽象的设计方法。数据的过程性表示：消息传递的程序设计风格。</p>
+<h3 id="2-1__u6570_u636E_u62BD_u8C61_u5BFC_u5F15"><a href="#2-1__u6570_u636E_u62BD_u8C61_u5BFC_u5F15" class="headerlink" title="2.1 数据抽象导引"></a>2.1 数据抽象导引</h3><h4 id="ex2-1__u89C4_u8303_u5316make-rat"><a href="#ex2-1__u89C4_u8303_u5316make-rat" class="headerlink" title="ex2.1 规范化make-rat"></a>ex2.1 规范化make-rat</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-rat</span> n d)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> an <span class="list">(<span class="keyword">abs</span> n)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> ad <span class="list">(<span class="keyword">abs</span> d)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">g</span> <span class="list">(<span class="keyword">gcd</span> an ad)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">*</span> n d)</span> <span class="number">0</span>)</span> - +)</span> <span class="list">(<span class="keyword">/</span> an g)</span>)</span> <span class="list">(<span class="keyword">/</span> ad g)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-2__u7EBF_u6BB5_u8868_u793A"><a href="#ex2-2__u7EBF_u6BB5_u8868_u793A" class="headerlink" title="ex2.2 线段表示"></a>ex2.2 线段表示</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-point</span> x y)</span> <span class="list">(<span class="keyword">cons</span> x y)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">x-point</span> p)</span> <span class="list">(<span class="keyword">car</span> p)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">y-point</span> p)</span> <span class="list">(<span class="keyword">cdr</span> p)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-segment</span> a b)</span> <span class="list">(<span class="keyword">cons</span> a b)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">start-segment</span> s)</span> <span class="list">(<span class="keyword">car</span> s)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">end-segment</span> s)</span> <span class="list">(<span class="keyword">cdr</span> s)</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">midpoint-segment</span> s)</span></span><br><span class="line">  <span class="list">(<span class="keyword">make-point</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">x-point</span> <span class="list">(<span class="keyword">start-segment</span> s)</span>)</span> <span class="list">(<span class="keyword">x-point</span> <span class="list">(<span class="keyword">end-segment</span> s)</span>)</span>)</span> <span class="number">2</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">y-point</span> <span class="list">(<span class="keyword">start-segment</span> s)</span>)</span> <span class="list">(<span class="keyword">y-point</span> <span class="list">(<span class="keyword">end-segment</span> s)</span>)</span>)</span> <span class="number">2</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">print-point</span> p)</span></span><br><span class="line">  <span class="list">(<span class="keyword">newline</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="string">"("</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="list">(<span class="keyword">x-point</span> p)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="string">","</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="list">(<span class="keyword">y-point</span> p)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="string">")"</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> a <span class="list">(<span class="keyword">make-point</span> <span class="number">1</span> <span class="number">2</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> b <span class="list">(<span class="keyword">make-point</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> c <span class="list">(<span class="keyword">make-segment</span> a b)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">midpoint-segment</span> c)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-3__u5E73_u9762_u77E9_u5F62_u7684_u8868_u793A"><a href="#ex2-3__u5E73_u9762_u77E9_u5F62_u7684_u8868_u793A" class="headerlink" title="ex2.3 平面矩形的表示"></a>ex2.3 平面矩形的表示</h4><p>两种方式：长和宽；四个顶点</p>
+<p>提供 length-of-rectangle  width-of-rectangle 函数来作为抽象屏障</p>
+<p>具体代码没有太大挑战，略了</p>
+<h4 id="ex2-4__u5E8F_u5BF9_u7684_u53E6_u4E00_u79CD_u8FC7_u7A0B_u6027_u8868_u793A"><a href="#ex2-4__u5E8F_u5BF9_u7684_u53E6_u4E00_u79CD_u8FC7_u7A0B_u6027_u8868_u793A" class="headerlink" title="ex2.4 序对的另一种过程性表示"></a>ex2.4 序对的另一种过程性表示</h4><p>直接代换即可证明</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cdr</span> z)</span></span><br><span class="line">  <span class="list">(<span class="keyword">z</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">p</span> q)</span> q)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-5__u5E8F_u5BF9_u7684_u6574_u6570_u8868_u793A"><a href="#ex2-5__u5E8F_u5BF9_u7684_u6574_u6570_u8868_u793A" class="headerlink" title="ex2.5 序对的整数表示"></a>ex2.5 序对的整数表示</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt-iter</span> b n val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">0</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? n)</span> <span class="list">(<span class="keyword">expt-iter</span> <span class="list">(<span class="keyword">*</span> b b)</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span> val)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">expt-iter</span> b <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="list">(<span class="keyword">*</span> val b)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt</span> b n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">expt-iter</span> b n <span class="number">1</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cons</span> a b)</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">expt</span> <span class="number">2</span> a)</span> <span class="list">(<span class="keyword">expt</span> <span class="number">3</span> b)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">car</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">iter</span> a b)</span></span><br><span class="line">    <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">val</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">expt</span> <span class="number">2</span> a)</span> <span class="list">(<span class="keyword">expt</span> <span class="number">3</span> b)</span>)</span>)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> val x)</span> a)</span></span><br><span class="line">        <span class="list">(<span class="list">(<span class="keyword">&gt;</span> val x)</span> <span class="list">(<span class="keyword">iter</span> <span class="list">(<span class="keyword">+</span> a <span class="number">1</span>)</span> <span class="number">0</span>)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">iter</span> a <span class="list">(<span class="keyword">+</span> b <span class="number">1</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">iter</span> <span class="number">0</span> <span class="number">0</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cdr</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">iter</span> a b)</span></span><br><span class="line">    <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">val</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">expt</span> <span class="number">2</span> a)</span> <span class="list">(<span class="keyword">expt</span> <span class="number">3</span> b)</span>)</span>)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> val x)</span> b)</span></span><br><span class="line">        <span class="list">(<span class="list">(<span class="keyword">&gt;</span> val x)</span> <span class="list">(<span class="keyword">iter</span> <span class="list">(<span class="keyword">+</span> a <span class="number">1</span>)</span> <span class="number">0</span>)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">iter</span> a <span class="list">(<span class="keyword">+</span> b <span class="number">1</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">iter</span> <span class="number">0</span> <span class="number">0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-6_Church_u8BA1_u6570"><a href="#ex2-6_Church_u8BA1_u6570" class="headerlink" title="ex2.6 Church计数"></a>ex2.6 Church计数</h4><p>代入可知：</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> one <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">f</span> x)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> two <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">f</span> <span class="list">(<span class="keyword">f</span> x)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<p>容易猜测 three, four为依次多了个(f xx)，所以加法中，加1最外圈是一个f，加n就是最外圈产生n个f，而(m f)就是</p>
+<p>(lambda (x) (f (f …(f x)))) 共m个f</p>
+<p>将((n f) x)作为上面的x代入即是n+m结果。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">add</span> m n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="list">(<span class="keyword">m</span> f)</span> <span class="list">(<span class="list">(<span class="keyword">n</span> f)</span> x)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/SICP/">SICP</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/04/note-to-iatlc/" data-tooltip="《自动机理论，语言和计算导论》笔记">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Hover Winter. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--disabled">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/04/note-to-iatlc/" data-tooltip="《自动机理论，语言和计算导论》笔记">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/photo.jpg"/>
+        
+            <h4 id="about-card-name">Hover Winter</h4>
+        
+            <h5 id="about-card-bio"><p>A student devote to the computer science</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>2015 Internship in Alibaba</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/';
+                 
+                    this.page.identifier = '2016/03/10/solution-to-sicp-part-2/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'hoverwinter';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','7HEJue7Z2VadUFupdb9W','2.0.0');
+    </script>
+
+
+</html>

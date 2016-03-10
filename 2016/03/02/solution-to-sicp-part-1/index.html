@@ -1,382 +1,257 @@
-<?xml version="1.0" encoding="utf-8"?>
-<feed xmlns="http://www.w3.org/2005/Atom">
-  <title><![CDATA[Role Space]]></title>
-  <subtitle><![CDATA[Carpela's blog]]></subtitle>
-  <link href="/atom.xml" rel="self"/>
-  <link href="http://blog.carpela.me/"/>
-  <updated>2016-03-10T11:26:29.000Z</updated>
-  <id>http://blog.carpela.me/</id>
-  
-  <author>
-    <name><![CDATA[Hover Winter]]></name>
-    <email><![CDATA[hoverwinter@gmail.com]]></email>
-  </author>
-  
-  <generator uri="http://hexo.io/">Hexo</generator>
-  
-  <entry>
-    <title><![CDATA[《SICP》习题解答及笔记：第二章]]></title>
-    <link href="http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/"/>
-    <id>http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/</id>
-    <published>2016-03-10T05:39:23.000Z</published>
-    <updated>2016-03-10T11:26:29.000Z</updated>
-    <content type="html"><![CDATA[<!-- TOC -->
-<p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>
-<a id="more"></a>
-<h2 id="u7B2C_u4E8C_u7AE0__u6784_u9020_u6570_u636E_u62BD_u8C61"><a href="#u7B2C_u4E8C_u7AE0__u6784_u9020_u6570_u636E_u62BD_u8C61" class="headerlink" title="第二章 构造数据抽象"></a>第二章 构造数据抽象</h2><p>数据总是可以表示为一组构造和选择函数，并且使这些过程成为一套合法的表示所需要满足的条件。数据抽象的设计方法。数据的过程性表示：消息传递的程序设计风格。</p>
-<h3 id="2-1__u6570_u636E_u62BD_u8C61_u5BFC_u5F15"><a href="#2-1__u6570_u636E_u62BD_u8C61_u5BFC_u5F15" class="headerlink" title="2.1 数据抽象导引"></a>2.1 数据抽象导引</h3><h4 id="ex2-1__u89C4_u8303_u5316make-rat"><a href="#ex2-1__u89C4_u8303_u5316make-rat" class="headerlink" title="ex2.1 规范化make-rat"></a>ex2.1 规范化make-rat</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-rat</span> n d)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> an <span class="list">(<span class="keyword">abs</span> n)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> ad <span class="list">(<span class="keyword">abs</span> d)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">g</span> <span class="list">(<span class="keyword">gcd</span> an ad)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">*</span> n d)</span> <span class="number">0</span>)</span> - +)</span> <span class="list">(<span class="keyword">/</span> an g)</span>)</span> <span class="list">(<span class="keyword">/</span> ad g)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<h4 id="ex2-2__u7EBF_u6BB5_u8868_u793A"><a href="#ex2-2__u7EBF_u6BB5_u8868_u793A" class="headerlink" title="ex2.2 线段表示"></a>ex2.2 线段表示</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-point</span> x y)</span> <span class="list">(<span class="keyword">cons</span> x y)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">x-point</span> p)</span> <span class="list">(<span class="keyword">car</span> p)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">y-point</span> p)</span> <span class="list">(<span class="keyword">cdr</span> p)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-segment</span> a b)</span> <span class="list">(<span class="keyword">cons</span> a b)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">start-segment</span> s)</span> <span class="list">(<span class="keyword">car</span> s)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">end-segment</span> s)</span> <span class="list">(<span class="keyword">cdr</span> s)</span>)</span></span><br><span class="line"></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">midpoint-segment</span> s)</span></span><br><span class="line">  <span class="list">(<span class="keyword">make-point</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">x-point</span> <span class="list">(<span class="keyword">start-segment</span> s)</span>)</span> <span class="list">(<span class="keyword">x-point</span> <span class="list">(<span class="keyword">end-segment</span> s)</span>)</span>)</span> <span class="number">2</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">y-point</span> <span class="list">(<span class="keyword">start-segment</span> s)</span>)</span> <span class="list">(<span class="keyword">y-point</span> <span class="list">(<span class="keyword">end-segment</span> s)</span>)</span>)</span> <span class="number">2</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">print-point</span> p)</span></span><br><span class="line">  <span class="list">(<span class="keyword">newline</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="string">"("</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="list">(<span class="keyword">x-point</span> p)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="string">","</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="list">(<span class="keyword">y-point</span> p)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">display</span> <span class="string">")"</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> a <span class="list">(<span class="keyword">make-point</span> <span class="number">1</span> <span class="number">2</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> b <span class="list">(<span class="keyword">make-point</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> c <span class="list">(<span class="keyword">make-segment</span> a b)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">midpoint-segment</span> c)</span></span><br></pre></td></tr></table></figure>
-<h4 id="ex2-3__u5E73_u9762_u77E9_u5F62_u7684_u8868_u793A"><a href="#ex2-3__u5E73_u9762_u77E9_u5F62_u7684_u8868_u793A" class="headerlink" title="ex2.3 平面矩形的表示"></a>ex2.3 平面矩形的表示</h4><p>两种方式：长和宽；四个顶点</p>
-<p>提供 length-of-rectangle  width-of-rectangle 函数来作为抽象屏障</p>
-<p>具体代码没有太大挑战，略了</p>
-<h4 id="ex2-4__u5E8F_u5BF9_u7684_u53E6_u4E00_u79CD_u8FC7_u7A0B_u6027_u8868_u793A"><a href="#ex2-4__u5E8F_u5BF9_u7684_u53E6_u4E00_u79CD_u8FC7_u7A0B_u6027_u8868_u793A" class="headerlink" title="ex2.4 序对的另一种过程性表示"></a>ex2.4 序对的另一种过程性表示</h4><p>直接代换即可证明</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cdr</span> z)</span></span><br><span class="line">  <span class="list">(<span class="keyword">z</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">p</span> q)</span> q)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<h4 id="ex2-5__u5E8F_u5BF9_u7684_u6574_u6570_u8868_u793A"><a href="#ex2-5__u5E8F_u5BF9_u7684_u6574_u6570_u8868_u793A" class="headerlink" title="ex2.5 序对的整数表示"></a>ex2.5 序对的整数表示</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt-iter</span> b n val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">0</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? n)</span> <span class="list">(<span class="keyword">expt-iter</span> <span class="list">(<span class="keyword">*</span> b b)</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span> val)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">expt-iter</span> b <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="list">(<span class="keyword">*</span> val b)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt</span> b n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">expt-iter</span> b n <span class="number">1</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cons</span> a b)</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">expt</span> <span class="number">2</span> a)</span> <span class="list">(<span class="keyword">expt</span> <span class="number">3</span> b)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">car</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">iter</span> a b)</span></span><br><span class="line">    <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">val</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">expt</span> <span class="number">2</span> a)</span> <span class="list">(<span class="keyword">expt</span> <span class="number">3</span> b)</span>)</span>)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> val x)</span> a)</span></span><br><span class="line">        <span class="list">(<span class="list">(<span class="keyword">&gt;</span> val x)</span> <span class="list">(<span class="keyword">iter</span> <span class="list">(<span class="keyword">+</span> a <span class="number">1</span>)</span> <span class="number">0</span>)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">iter</span> a <span class="list">(<span class="keyword">+</span> b <span class="number">1</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">iter</span> <span class="number">0</span> <span class="number">0</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">cdr</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">iter</span> a b)</span></span><br><span class="line">    <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">val</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">expt</span> <span class="number">2</span> a)</span> <span class="list">(<span class="keyword">expt</span> <span class="number">3</span> b)</span>)</span>)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> val x)</span> b)</span></span><br><span class="line">        <span class="list">(<span class="list">(<span class="keyword">&gt;</span> val x)</span> <span class="list">(<span class="keyword">iter</span> <span class="list">(<span class="keyword">+</span> a <span class="number">1</span>)</span> <span class="number">0</span>)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">iter</span> a <span class="list">(<span class="keyword">+</span> b <span class="number">1</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">iter</span> <span class="number">0</span> <span class="number">0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<h4 id="ex2-6_Church_u8BA1_u6570"><a href="#ex2-6_Church_u8BA1_u6570" class="headerlink" title="ex2.6 Church计数"></a>ex2.6 Church计数</h4><p>代入可知：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> one <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">f</span> x)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> two <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">f</span> <span class="list">(<span class="keyword">f</span> x)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<p>容易猜测 three, four为依次多了个(f xx)，所以加法中，加1最外圈是一个f，加n就是最外圈产生n个f，而(m f)就是</p>
-<p>(lambda (x) (f (f …(f x)))) 共m个f</p>
-<p>将((n f) x)作为上面的x代入即是n+m结果。</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">add</span> m n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="list">(<span class="keyword">m</span> f)</span> <span class="list">(<span class="list">(<span class="keyword">n</span> f)</span> x)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<!-- TOC -->
-<p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>]]>
+
+<!DOCTYPE html>
+<html lang="zh-cn">
     
-    </summary>
+<head>
+    <meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Role Space">
+    <title>《SICP》习题解答及笔记：第一章 - Role Space</title>
+    <meta name="author" content="Hover Winter">
     
-      <category term="SICP" scheme="http://blog.carpela.me/tags/SICP/"/>
     
-      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
+        <link rel="icon" href="http://blog.carpela.me/assets/images/favicon.ico">
     
-      <category term="函数式编程" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
     
-  </entry>
-  
-  <entry>
-    <title><![CDATA[《自动机理论，语言和计算导论》笔记]]></title>
-    <link href="http://blog.carpela.me/2016/03/04/note-to-iatlc/"/>
-    <id>http://blog.carpela.me/2016/03/04/note-to-iatlc/</id>
-    <published>2016-03-04T05:35:08.000Z</published>
-    <updated>2016-03-10T12:55:07.000Z</updated>
-    <content type="html"><![CDATA[<!-- TOC -->
-<p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>
-<a id="more"></a>
-<h2 id="Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C"><a href="#Chapter_1__u81EA_u52A8_u673A_uFF1A_u65B9_u6CD5_u4E0E_u4F53_u9A8C" class="headerlink" title="Chapter 1 自动机：方法与体验"></a>Chapter 1 自动机：方法与体验</h2><p>归纳法与演绎法证明：第一和第二数学归纳法</p>
-<p>判定性问题：计算机能不能解决</p>
-<p>难解性问题：计算机能不能有效解决</p>
-<p>字母表 ∑ 非空有限集合，∑+ 与 ∑* 定义</p>
-<p>串：w 空串 Ɛ</p>
-<p>语言L：L是 ∑* 的子集</p>
-<p>所有问题都能转化为：给定串w，判断是否属于语言L</p>
-<h2 id="Chapter_2__u6709_u7A77_u81EA_u52A8_u673A"><a href="#Chapter_2__u6709_u7A77_u81EA_u52A8_u673A" class="headerlink" title="Chapter 2 有穷自动机"></a>Chapter 2 有穷自动机</h2><p>有穷自动机：有限个状态，五元组(Q,∑,ð,q0,F)</p>
-<p>DFA, NFA, Ɛ-NFA 之间的区别是：</p>
-<p>DFA同时只能处于一个状态，NFA可以处于多个状态，Ɛ-NFA可以自动转移到另一个状态(Ɛ-空转移)</p>
-<h3 id="DFA"><a href="#DFA" class="headerlink" title="DFA"></a>DFA</h3><p>拓展的转移函数 ð’(q,w) = ð(ð’(q’,x),a) w=xa 由习题2.2.2知，a也可以是串</p>
-<p>DFA A 接受的语言 L(A) = { w | ð’(q,w)属于F }</p>
-<hr>
-<h6 id="ex2-2-1"><a href="#ex2-2-1" class="headerlink" title="ex2.2.1"></a>ex2.2.1</h6><p>杠杆和出口共有16种状态，其中上一个球从哪里出去的不影响接下来球的去向，它只由杠杆状态确定。0表示杠杆向左，1表示向右，C/D表示出口，得出：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>A</th>
-<th>B</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-&gt;*000D</td>
-<td>100C</td>
-<td>011C</td>
-</tr>
-<tr>
-<td>*001D</td>
-<td>100C</td>
-<td>000D</td>
-</tr>
-<tr>
-<td>010C</td>
-<td>110C</td>
-<td>001D</td>
-</tr>
-<tr>
-<td>*010D</td>
-<td>110C</td>
-<td>001D</td>
-</tr>
-<tr>
-<td>011C</td>
-<td>111C</td>
-<td>010D</td>
-</tr>
-<tr>
-<td>100C</td>
-<td>010C</td>
-<td>111C</td>
-</tr>
-<tr>
-<td>*100D</td>
-<td>010C</td>
-<td>111C</td>
-</tr>
-<tr>
-<td>101D</td>
-<td>011C</td>
-<td>100D</td>
-</tr>
-<tr>
-<td>110C</td>
-<td>011C</td>
-<td>100D</td>
-</tr>
-<tr>
-<td>*110D</td>
-<td>011C</td>
-<td>100D</td>
-</tr>
-<tr>
-<td>111C</td>
-<td>001D</td>
-<td>110D</td>
-</tr>
-</tbody>
-</table>
-<h6 id="ex2-2-3"><a href="#ex2-2-3" class="headerlink" title="ex2.2.3"></a>ex2.2.3</h6><p>a. A以1结尾的串，B以10结尾的串，C以00结尾的串</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-&gt;A</td>
-<td>B</td>
-<td>A</td>
-</tr>
-<tr>
-<td>B</td>
-<td>C</td>
-<td>A</td>
-</tr>
-<tr>
-<td>*C</td>
-<td>C</td>
-<td>A</td>
-</tr>
-</tbody>
-</table>
-<p>b,c 与教材中例子类似</p>
-<h6 id="ex2-2-5"><a href="#ex2-2-5" class="headerlink" title="ex2.2.5"></a>ex2.2.5</h6><p>a. 把所有串长度为0，1，2，3，4，5的各种可能表示为状态（63种）即可</p>
-<p>c. </p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-&gt;a</td>
-<td>b</td>
-<td>d</td>
-</tr>
-<tr>
-<td>b</td>
-<td>e</td>
-<td>c</td>
-</tr>
-<tr>
-<td>*c</td>
-<td>c</td>
-<td>c</td>
-</tr>
-<tr>
-<td>d</td>
-<td>e</td>
-<td>d</td>
-</tr>
-<tr>
-<td>e</td>
-<td>e</td>
-<td>f</td>
-</tr>
-<tr>
-<td>*f</td>
-<td>e</td>
-<td>d</td>
-</tr>
-</tbody>
-</table>
-<h6 id="ex2-2-6"><a href="#ex2-2-6" class="headerlink" title="ex2.2.6"></a>ex2.2.6</h6><p>a. 先判断以1开头，再根据余数确定状态 2<em>a[+1] mod 5 = ((a mod 5)</em>2 [+1]) mod 5 确定状态转移 共7种状态</p>
-<p>b. 注意到输入0余数不变，输入1相当于加了 2^n 。由于 1 2 4 8 16 32 64 128 mod 5 余数是 1 2 4 3, 1 2 4 3… 容易得出：</p>
-<table>
-<thead>
-<tr>
-<th></th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-&gt;a</td>
-<td>b</td>
-<td>c</td>
-</tr>
-<tr>
-<td>*b</td>
-<td>b</td>
-<td>c</td>
-</tr>
-<tr>
-<td>c</td>
-<td>c</td>
-<td>d</td>
-</tr>
-<tr>
-<td>d</td>
-<td>d</td>
-<td>e</td>
-</tr>
-<tr>
-<td>e</td>
-<td>e</td>
-<td>b</td>
-</tr>
-</tbody>
-</table>
-<h6 id="ex2-2-10"><a href="#ex2-2-10" class="headerlink" title="ex2.2.10"></a>ex2.2.10</h6><p>A：1的个数为偶数 B：1的个数为奇数</p>
-<h6 id="ex2-2-11"><a href="#ex2-2-11" class="headerlink" title="ex2.2.11"></a>ex2.2.11</h6><p>所有不包含连续两个0的串</p>
-<hr>
-<p>常见DFA总结：</p>
-<ul>
-<li>以xxx开头/结尾：简单</li>
-<li>包含xxx的子串：简单</li>
-<li>倒数第n个是x：简单</li>
-<li>连续n个符号包含m个x：2^(n+1)-1个状态</li>
-<li>a的个数被m整除，b的个数被n整除：m*n个状态 整除都用余数表示状态</li>
-<li>进制转换后整除：有特殊性，观察余数变化规律</li>
-</ul>
-<hr>
-<h3 id="NFA"><a href="#NFA" class="headerlink" title="NFA"></a>NFA</h3><p>ð(q,a) = S 是Q的子集合</p>
-<p>接受的语言： {w|ð(q0,w)与F的交集不为空}</p>
-<p>NFA-&gt;DFA 子集构造法 以及惰性求值减少计算量</p>
-<p>子集构造后的 L(D) = L(N) 的证明：对w进行归纳</p>
-<p>一种n个状态转换成DFA至少2^n个状态的NFA的构造： 鸽巢原理</p>
-<hr>
-<h6 id="ex2-3-1"><a href="#ex2-3-1" class="headerlink" title="ex2.3.1"></a>ex2.3.1</h6><table>
-<thead>
-<tr>
-<th></th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-&gt;{p}</td>
-<td>{p,q}</td>
-<td>{p}</td>
-</tr>
-<tr>
-<td>{p,q}</td>
-<td>{p,q,r}</td>
-<td>{p,r}</td>
-</tr>
-<tr>
-<td>{p,r}</td>
-<td>{p,q,s}</td>
-<td>{p}</td>
-</tr>
-<tr>
-<td>{p,q,r}</td>
-<td>{p,q,r,s}</td>
-<td>{p,r}</td>
-</tr>
-<tr>
-<td>*{p,q,r,s}</td>
-<td>{p,q,r,s}</td>
-<td>{p,r}</td>
-</tr>
-<tr>
-<td>*{p,r,s}</td>
-<td>{p,q,s}</td>
-<td>{p,s}</td>
-</tr>
-<tr>
-<td>*{p,q,s}</td>
-<td>{p,q,r,s}</td>
-<td>{p,r,s}</td>
-</tr>
-<tr>
-<td>*{p,s}</td>
-<td>{p,q,s}</td>
-<td>{p,s}</td>
-</tr>
-</tbody>
-</table>
-<h6 id="ex2-3-3"><a href="#ex2-3-3" class="headerlink" title="ex2.3.3"></a>ex2.3.3</h6><table>
-<thead>
-<tr>
-<th></th>
-<th>0</th>
-<th>1</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>-&gt;{p}</td>
-<td>{p,q}</td>
-<td>{p}</td>
-</tr>
-<tr>
-<td>{p,q}</td>
-<td>{p,q,r,s}</td>
-<td>{p,t}</td>
-</tr>
-<tr>
-<td>*{p,t}</td>
-<td>{p,q}</td>
-<td>{p}</td>
-</tr>
-<tr>
-<td>*{p,q,r,s}</td>
-<td>{p,q,r,s}</td>
-<td>{p,t}</td>
-</tr>
-</tbody>
-</table>
-<p>所有以00或01结尾的0,1串</p>
-<p>######</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<!-- TOC -->
-<p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>]]>
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
     
-    </summary>
+    <meta name="description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="《SICP》习题解答及笔记：第一章">
+<meta property="og:url" content="http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/index.html">
+<meta property="og:site_name" content="Role Space">
+<meta property="og:description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
+<meta property="og:updated_time" content="2016-03-10T05:38:40.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="《SICP》习题解答及笔记：第一章">
+<meta name="twitter:description" content="&amp;lt;!-- TOC --&amp;gt;
+本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。">
     
-      <category term="形式语言" scheme="http://blog.carpela.me/tags/%E5%BD%A2%E5%BC%8F%E8%AF%AD%E8%A8%80/"/>
     
-      <category term="自动机理论" scheme="http://blog.carpela.me/tags/%E8%87%AA%E5%8A%A8%E6%9C%BA%E7%90%86%E8%AE%BA/"/>
+        
     
-      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
     
-      <category term="计算理论" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E8%AE%A1%E7%AE%97%E7%90%86%E8%AE%BA/"/>
+        <meta property="og:image" content="http://blog.carpela.me/assets/images/photo.jpg"/>
     
-  </entry>
-  
-  <entry>
-    <title><![CDATA[《SICP》习题解答及笔记：第一章]]></title>
-    <link href="http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/"/>
-    <id>http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/</id>
-    <published>2016-03-02T12:03:08.000Z</published>
-    <updated>2016-03-10T05:38:40.000Z</updated>
-    <content type="html"><![CDATA[<!-- TOC -->
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END-->
+    
+    
+</head>
+
+    <body>
+        <div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">Role Space</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/photo.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">Hover Winter</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://wiki.carpela.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">My Wiki</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://stackoverflow.com/users/5816081/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:hoverwinter@gmail.com" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            《SICP》习题解答及笔记：第一章
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Wed Mar 02 2016 20:03:08 GMT+0800">
+	
+		    3月 02, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/计算机科学/">计算机科学</a>, <a class="category-link" href="/categories/计算机科学/函数式编程/">函数式编程</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <h1 id="table-of-contents">目录</h1><ol class="toc"><li class="toc-item toc-level-2"><a class="toc-link" href="#u7B2C_u4E00_u7AE0_uFF1A_u6784_u9020_u8FC7_u7A0B_u62BD_u8C61"><span class="toc-text">第一章：构造过程抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#1-1__u7A0B_u5E8F_u8BBE_u8BA1_u7684_u57FA_u672C_u5143_u7D20"><span class="toc-text">1.1 程序设计的基本元素</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-3__u6C42_u8F83_u5927_u4E24_u6570_u548C"><span class="toc-text">ex1.3 求较大两数和</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-5__u5E94_u7528_u5E8F_or__u6B63_u5219_u5E8F"><span class="toc-text">ex1.5 应用序 or 正则序</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-6_new-if"><span class="toc-text">ex1.6 new-if</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-7__u7CBE_u5EA6_u95EE_u9898"><span class="toc-text">ex1.7 精度问题</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-8__u725B_u987F_u6CD5_u6C42_u7ACB_u65B9_u6839"><span class="toc-text">ex1.8 牛顿法求立方根</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-2__u8FC7_u7A0B_u4E0E_u5B83_u4EEC_u6240_u4EA7_u751F_u7684_u8FD0_u7B97"><span class="toc-text">1.2 过程与它们所产生的运算</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-9__u52A0_u6CD5_u7684_u8FED_u4EE3_u548C_u9012_u5F52"><span class="toc-text">ex1.9 加法的迭代和递归</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-10_Ackermann_u51FD_u6570"><span class="toc-text">ex1.10 Ackermann函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-11_f_28n_29_3Df_28n-1_29+2f_28n-2_29+3f_28n-3_29_u7684_u9012_u5F52_u548C_u8FED_u4EE3"><span class="toc-text">ex1.11 f(n)=f(n-1)+2f(n-2)+3f(n-3)的递归和迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-12__u5E15_u65AF_u5361_u4E09_u89D2_u5F62"><span class="toc-text">ex1.12 帕斯卡三角形</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-14__u6362_u96F6_u94B1_u590D_u6742_u5EA6_u5206_u6790"><span class="toc-text">ex1.14 换零钱复杂度分析</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-15__u725B_u987F_u8FED_u4EE3_u590D_u6742_u5EA6"><span class="toc-text">ex1.15 牛顿迭代复杂度</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-16__u5E42_u8FED_u4EE3"><span class="toc-text">ex1.16 幂迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-17__u5FEB_u901F_u4E58_u6CD5"><span class="toc-text">ex1.17 快速乘法</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-18__u5FEB_u901F_u4E58_u6CD5_u8FED_u4EE3"><span class="toc-text">ex1.18 快速乘法迭代</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-19__u5BF9_u6570_u7684Fibonacci_u8BA1_u7B97"><span class="toc-text">ex1.19 对数的Fibonacci计算</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-20__u6C42_u503C_u6A21_u578B_u4E0E_u8BA1_u7B97_u8FC7_u7A0B"><span class="toc-text">ex1.20 求值模型与计算过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-23__u53BB_u9664_u65E0_u7528_u68C0_u67E5"><span class="toc-text">ex1.23 去除无用检查</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-25__u53E6_u4E00_u79CDexpmod"><span class="toc-text">ex1.25 另一种expmod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-26__u7CDF_u7CD5_u5199_u6CD5_u7684expmod"><span class="toc-text">ex1.26 糟糕写法的expmod</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-28_Miller-Rabin_u68C0_u67E5"><span class="toc-text">ex1.28 Miller-Rabin检查</span></a></li></ol></li><li class="toc-item toc-level-3"><a class="toc-link" href="#1-3__u7528_u9AD8_u9636_u8FC7_u7A0B_u505A_u62BD_u8C61"><span class="toc-text">1.3 用高阶过程做抽象</span></a><ol class="toc-child"><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-29__u8F9B_u666E_u68EE_u89C4_u5219"><span class="toc-text">ex1.29 辛普森规则</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-30__u8FED_u4EE3_u7684sum"><span class="toc-text">ex1.30 迭代的sum</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-31_product_u62BD_u8C61"><span class="toc-text">ex1.31 product抽象</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-32__u901A_u7528_u7684_u7D2F_u79EF_u8FC7_u7A0B"><span class="toc-text">ex1.32 通用的累积过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-33__u5E26_u8FC7_u6EE4_u5668_u7684_u7D2F_u79EF_u8FC7_u7A0B"><span class="toc-text">ex1.33 带过滤器的累积过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-34__28f_f_29_u8C03_u7528"><span class="toc-text">ex1.34 (f f)调用</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-35__u9EC4_u91D1_u5206_u5272_u7387"><span class="toc-text">ex1.35 黄金分割率</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-36__u6253_u5370_u5E8F_u5217_u7684fixed-point"><span class="toc-text">ex1.36 打印序列的fixed-point</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-37__u65E0_u7A77_u8FDE_u5206_u5F0F"><span class="toc-text">ex1.37 无穷连分式</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-38_e-2_u7684_u8FDE_u5206_u5F0F_u5C55_u5F00"><span class="toc-text">ex1.38 e-2的连分式展开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-39__u6B63_u5207_u51FD_u6570_u7684_u8FDE_u5206_u5F0F_u5C55_u5F00"><span class="toc-text">ex1.39 正切函数的连分式展开</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-40__u4E09_u6B21_u65B9_u7A0B_u96F6_u70B9"><span class="toc-text">ex1.40 三次方程零点</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-41_double_u8FC7_u7A0B"><span class="toc-text">ex1.41 double过程</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-42__u590D_u5408_u51FD_u6570"><span class="toc-text">ex1.42 复合函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-43_n_u6B21_u590D_u5408"><span class="toc-text">ex1.43 n次复合</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-44__u5E73_u6ED1_u51FD_u6570"><span class="toc-text">ex1.44 平滑函数</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-45_n_u6B21_u65B9_u6839"><span class="toc-text">ex1.45 n次方根</span></a></li><li class="toc-item toc-level-4"><a class="toc-link" href="#ex1-46__u8FED_u4EE3_u5F0F_u6539_u8FDB"><span class="toc-text">ex1.46 迭代式改进</span></a></li></ol></li></ol></li></ol>
 <p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>
 <a id="more"></a>
 <h2 id="u7B2C_u4E00_u7AE0_uFF1A_u6784_u9020_u8FC7_u7A0B_u62BD_u8C61"><a href="#u7B2C_u4E00_u7AE0_uFF1A_u6784_u9020_u8FC7_u7A0B_u62BD_u8C61" class="headerlink" title="第一章：构造过程抽象"></a>第一章：构造过程抽象</h2><h3 id="1-1__u7A0B_u5E8F_u8BBE_u8BA1_u7684_u57FA_u672C_u5143_u7D20"><a href="#1-1__u7A0B_u5E8F_u8BBE_u8BA1_u7684_u57FA_u672C_u5143_u7D20" class="headerlink" title="1.1 程序设计的基本元素"></a>1.1 程序设计的基本元素</h3><p>基本的抽象：变量以及其环境。复合过程的代换模型以及求值模型：应用序和正则序。过程抽象。内部定义和块结构解决命名空间问题。静态作用域(词法作用域)。</p>
@@ -486,272 +361,253 @@
 <h4 id="ex1-44__u5E73_u6ED1_u51FD_u6570"><a href="#ex1-44__u5E73_u6ED1_u51FD_u6570" class="headerlink" title="ex1.44 平滑函数"></a>ex1.44 平滑函数</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">smooth</span> f)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">f</span> <span class="list">(<span class="keyword">-</span> x dx)</span>)</span> <span class="list">(<span class="keyword">f</span> x)</span> <span class="list">(<span class="keyword">f</span> <span class="list">(<span class="keyword">+</span> x dx)</span>)</span>)</span> <span class="number">3</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">smooth-n</span> f n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="list">(<span class="list">(<span class="keyword">repeated</span> smooth n)</span> f)</span> x)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="list">(<span class="keyword">smooth-n</span> square <span class="number">5</span>)</span> <span class="number">4</span>)</span></span><br></pre></td></tr></table></figure>
 <h4 id="ex1-45_n_u6B21_u65B9_u6839"><a href="#ex1-45_n_u6B21_u65B9_u6839" class="headerlink" title="ex1.45 n次方根"></a>ex1.45 n次方根</h4><p>n次方根需要n-1次平均阻尼</p>
 <figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt-iter</span> b n val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">0</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">even</span>? n)</span> <span class="list">(<span class="keyword">expt-iter</span> <span class="list">(<span class="keyword">*</span> b b)</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span> val)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">expt-iter</span> b <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="list">(<span class="keyword">*</span> val b)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">expt</span> b n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">expt-iter</span> b n <span class="number">1</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fixed-point</span> f first-guess)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">good-enough</span>? guess next)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> guess next)</span>)</span> <span class="number">0.00001</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">try-it</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">next</span> <span class="list">(<span class="keyword">f</span> guess)</span>)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">display</span> guess)</span></span><br><span class="line">      <span class="list">(<span class="keyword">newline</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">good-enough</span>? guess next)</span></span><br><span class="line">        next</span><br><span class="line">        <span class="list">(<span class="keyword">try-it</span> next)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">try-it</span> first-guess)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">average</span> a b)</span></span><br><span class="line">  <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> a b)</span> <span class="number">2</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">average-damp</span> f)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">average</span> x <span class="list">(<span class="keyword">f</span> x)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">n-root</span> n x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">fixed-point</span> <span class="list">(<span class="keyword">repeated</span> <span class="list">(<span class="keyword">average-damp</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">y</span>)</span> <span class="list">(<span class="keyword">/</span> x <span class="list">(<span class="keyword">expt</span> y <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span>)</span>)</span>)</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span> <span class="number">1.0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<h4 id="ex1-46__u8FED_u4EE3_u5F0F_u6539_u8FDB"><a href="#ex1-46__u8FED_u4EE3_u5F0F_u6539_u8FDB" class="headerlink" title="ex1.46 迭代式改进"></a>ex1.46 迭代式改进</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">iterative-improve</span> close-enough? improve)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">first-guess</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">try</span> guess)</span></span><br><span class="line">      <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">next</span> <span class="list">(<span class="keyword">improve</span> guess)</span>)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">close-enough</span>? guess next)</span></span><br><span class="line">          next</span><br><span class="line">          <span class="list">(<span class="keyword">try</span> next)</span>)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">try</span> first-guess)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fixed-point</span> f first-guess)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> tolerance <span class="number">0.00001</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">close-enough</span>? v1 v2)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> v1 v2)</span>)</span> tolerance)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">f</span> guess)</span>)</span></span><br><span class="line">  <span class="list">(<span class="list">(<span class="keyword">iterative-improve</span> close-enough? improve)</span> first-guess)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">sqrt</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> dx <span class="number">0.00001</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">close-enough</span>? v1 v2)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> v1 v2)</span>)</span> dx)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">average</span> guess <span class="list">(<span class="keyword">/</span> x guess)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">average</span> x y)</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> x y)</span> <span class="number">2</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="list">(<span class="keyword">iterative-improve</span> close-enough? improve)</span> <span class="number">1.0</span>)</span>)</span></span><br></pre></td></tr></table></figure>]]></content>
-    <summary type="html">
-    <![CDATA[<!-- TOC -->
-<p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>]]>
-    
-    </summary>
-    
-      <category term="SICP" scheme="http://blog.carpela.me/tags/SICP/"/>
-    
-      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
-    
-      <category term="函数式编程" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[递归与迭代]]></title>
-    <link href="http://blog.carpela.me/2016/02/29/recursion-and-iteration/"/>
-    <id>http://blog.carpela.me/2016/02/29/recursion-and-iteration/</id>
-    <published>2016-02-29T15:44:26.000Z</published>
-    <updated>2016-03-05T04:58:08.000Z</updated>
-    <content type="html"><![CDATA[<!-- TOC -->
-<p>递归到迭代的转化是计算机科学中的一个经典问题，本篇文章简单讨论了是否所有递归都可以转化成迭代，给出了递归向迭代转化的基本方法。并介绍了尾递归，它作为一种特殊形式的递归，许多编译器将其优化为迭代。</p>
-<a id="more"></a>
-<h2 id="u9012_u5F52_u4E0E_u8FED_u4EE3"><a href="#u9012_u5F52_u4E0E_u8FED_u4EE3" class="headerlink" title="递归与迭代"></a>递归与迭代</h2><p>这个词汇大家都不会陌生，简单来说，递归就是函数自己调用自己，同时需要一个结束条件。上一篇关于约瑟夫问题的博客中就用到了(scheme)：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">josephus</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">    	<span class="list">(<span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">remainder</span> n <span class="number">2</span>)</span> <span class="number">0</span>)</span></span><br><span class="line">        	<span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> <span class="list">(<span class="keyword">josephus</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span>)</span>)</span> <span class="number">1</span>)</span>)</span></span><br><span class="line">    	<span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> <span class="list">(<span class="keyword">josephus</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="number">2</span>)</span>)</span>)</span> <span class="number">1</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<p>再比如经典的Fibonacci数列：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">2</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">		<span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">fib</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span>)</span> <span class="list">(<span class="keyword">fib</span> <span class="list">(<span class="keyword">-</span> n <span class="number">2</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<p>还有大家所熟知的二叉树遍历。</p>
-<p>而迭代通常是大家所熟知的循环结构，它的内存消耗小，执行速度比递归快。所以讨论是否所有递归都可以以及如何转化成迭代是一个热门的话题。 递归必须将消息（结果）传回调用者， 而迭代则完全不需要。</p>
-<p>从编译器的角度来看，实际上递归的文法是正则文法，而迭代的文法是上下文无关文法，后者的表达能力较强。迭代和递归的相互转换涉及到图灵完备性问题，即你要用迭代来代替递归的话有时必须要手工维护一个递归数据结构。处理上下文无关文法的下推自动机就是比处理正则文法的有限状态自动机多了一个栈，而递归自然将这个数据结构隐藏在了调用栈之中，所以它是一种更高级的抽象手段，相应的效率较低，并且有 stack overflow 的风险。所以，在不使用递归数据结构的情况下，是无法完成这一转化的。</p>
-<h2 id="u5C3E_u9012_u5F52"><a href="#u5C3E_u9012_u5F52" class="headerlink" title="尾递归"></a>尾递归</h2><p>如果在程序结束时只有递归调用的话，就是尾递归，它是很容易转换成迭代的。在scheme等lisp语言中，迭代结构正是通过尾递归表示。ECMAScript 6中明确要求尾递归优化，其它语言比如C，Python编译器不一定会做。并不是所有的递归都可以转成尾递归，比如二叉树的遍历。</p>
-<p>但是像上面给出的递归例子，只需保存递归时的状态信息，就可以完成转换，注意在迭代条件不满足时返回结果。约瑟夫问题的递归中变化的只有n和求得的值，转换成迭代就是：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">josephus-iter</span> n val)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> val)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">remainder</span> n <span class="number">2</span>)</span> <span class="number">0</span>)</span> <span class="list">(<span class="keyword">josephus-iter</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span> <span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">*</span> val <span class="number">2</span>)</span> <span class="number">1</span>)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">josephus-iter</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="number">2</span>)</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> val <span class="number">2</span>)</span> <span class="number">1</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">josephus</span> n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">josephus-iter</span> n <span class="number">1</span>)</span>)</span></span><br></pre></td></tr></table></figure>
-<p>而Fibonacci数列需要维持的是计算次数count，使用两个整数a，b：a&lt;-a+b，b&lt;-a 即可计算：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib-iter</span> a b count)</span></span><br><span class="line">	<span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">=</span> count <span class="number">0</span>)</span> </span><br><span class="line">		b</span><br><span class="line">		<span class="list">(<span class="keyword">fib-iter</span> <span class="list">(<span class="keyword">+</span> a b)</span> a <span class="list">(<span class="keyword">-</span> count <span class="number">1</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fib</span> n)</span></span><br><span class="line">	<span class="list">(<span class="keyword">fib-iter</span> <span class="number">1</span> <span class="number">0</span> n)</span>)</span></span><br></pre></td></tr></table></figure>
-<p>一般递归调用是递推阶段栈帧依次入栈，回归阶段依次出栈。但是尾递归由于是函数的最后一步操作，所以不需要保留外层函数的调用记录，因为调用位置、内部变量等信息都不会再用到了，只要直接用内层函数的调用记录取代外层函数的调用记录就可以了。</p>
-<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li>SICP</li>
-<li>Parsing Techniques</li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<!-- TOC -->
-<p>递归到迭代的转化是计算机科学中的一个经典问题，本篇文章简单讨论了是否所有递归都可以转化成迭代，给出了递归向迭代转化的基本方法。并介绍了尾递归，它作为一种特殊形式的递归，许多编译器将其优化为迭代。</p>]]>
-    
-    </summary>
-    
-      <category term="递归" scheme="http://blog.carpela.me/tags/%E9%80%92%E5%BD%92/"/>
-    
-      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
-    
-      <category term="函数式编程" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E5%87%BD%E6%95%B0%E5%BC%8F%E7%BC%96%E7%A8%8B/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[约瑟夫问题：递归的角度]]></title>
-    <link href="http://blog.carpela.me/2016/02/22/josephus-problem-and-recursion/"/>
-    <id>http://blog.carpela.me/2016/02/22/josephus-problem-and-recursion/</id>
-    <published>2016-02-22T14:01:26.000Z</published>
-    <updated>2016-03-01T15:44:08.000Z</updated>
-    <content type="html"><![CDATA[<!-- TOC -->
-<p>约瑟夫问题(The Josephus Problem)是计算机科学中一个经典问题，编程语言教学中它经常作为练习题。虽然司空见惯，背后却隐藏着玄机。它又如何与进位制转换扯上关系呢？本篇文章从递归的角度来重新解析这个流传近2000年的老问题，并提出一类递推式的快速解法。</p>
-<a id="more"></a>
-<h2 id="u95EE_u9898_u5B9A_u4E49"><a href="#u95EE_u9898_u5B9A_u4E49" class="headerlink" title="问题定义"></a>问题定义</h2><p>经典的约瑟夫问题定义如下：</p>
-<pre><code>有n个人，标号为 1 ~ n，从n开始，每隔一个人死于非命，求幸存者编号J(n)
-</code></pre><p>问题很简洁。它的背景是犹太罗马战争时期，有兴趣者移步。举个简单的例子，假如 n = 10，那么：</p>
-<ul>
-<li>第一轮淘汰：2 4 6 8 10 死于非命，剩下 1 3 5 7 9 开始新的一轮淘汰</li>
-<li>第二轮淘汰：3 7 死于非命，剩下 1 5 9 继续</li>
-<li>第三轮淘汰：1 9 死于非命，剩下 5 </li>
-<li>Game over</li>
-</ul>
-<p>可以发现，每一轮淘汰后（n个人），下一轮实际参与人只有 n/2。它的结果是和 J(n/2) 是同一个人，仅仅标号不同而已，而标号之间存在对应关系。上面的例子是偶数个人，以奇数个人试一试会有同样的发现。</p>
-<h2 id="u95EE_u9898_u6C42_u89E3"><a href="#u95EE_u9898_u6C42_u89E3" class="headerlink" title="问题求解"></a>问题求解</h2><p>这个问题的暴力解法是：</p>
-<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br></pre></td><td class="code"><pre><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdio.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;stdlib.h&gt;</span></span></span><br><span class="line"><span class="preprocessor">#<span class="keyword">include</span> <span class="string">&lt;string.h&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">char</span> *flag;</span><br><span class="line"><span class="keyword">int</span> n;</span><br><span class="line"><span class="comment">// 查找当前元素cur隔一个的活人</span></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">next</span><span class="params">(<span class="keyword">int</span> cur)</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="comment">// 跳过所有的死人，得到接下来的活人</span></span><br><span class="line">  <span class="keyword">while</span>(!flag[ ++cur % n]);</span><br><span class="line">  <span class="comment">// 跳过得到活人后面的所有死人，得到隔一个的活人</span></span><br><span class="line">  <span class="keyword">while</span>(!flag[ ++cur % n]);</span><br><span class="line">  <span class="keyword">return</span> cur % n;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">int</span> <span class="title">main</span><span class="params">()</span></span><br><span class="line"></span>&#123;</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Please input the number:"</span>);</span><br><span class="line">  <span class="built_in">scanf</span>(<span class="string">" %d"</span>, &amp;n);</span><br><span class="line">  flag = (<span class="keyword">char</span>*) <span class="built_in">malloc</span>(<span class="keyword">sizeof</span>(<span class="keyword">char</span>)*n);</span><br><span class="line">  <span class="comment">// 初始为活</span></span><br><span class="line">  <span class="built_in">memset</span>(flag, <span class="number">1</span>, n);</span><br><span class="line">  <span class="comment">// 死 n－1 个人</span></span><br><span class="line">  <span class="keyword">int</span> dead, cur = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">for</span>(dead=<span class="number">0</span>; dead &lt; n ; dead++)</span><br><span class="line">  &#123;</span><br><span class="line">    <span class="keyword">int</span> tmp = next(cur);</span><br><span class="line">    flag[tmp] = <span class="number">0</span>;</span><br><span class="line">    cur = tmp;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="built_in">free</span>(flag);</span><br><span class="line">  <span class="built_in">printf</span>(<span class="string">"Alive: %d\n"</span>, cur == <span class="number">0</span>? n:cur);</span><br><span class="line">  <span class="keyword">return</span> <span class="number">0</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>它的思路很简单，使用数组模拟人的死亡，下标为0的元素表示n号对应的人，由于这n个人形成的是环，这样做是可以的。这段代码看注释容易明白。当然还可以使用循环队列来解决问题，这样更直观，但效率相对较低。</p>
-<p>这种解法却没有利用到上面提到的规律，进一步发掘那个规律，J(10)第一轮剩下的五个人相当于J(5)重新编号，而且是 </p>
-<pre><code>J(10)站在同一位置的编号 = J(5)对应的编号*2 - 1
-</code></pre><p>同理 J(5)第一轮剩下的两个人相当于J(2)重新编号：</p>
-<pre><code>J(5)站在同一位置的编号 = J(2)对应的编号*2 + 1
-</code></pre><p>即存在以下递归关系：</p>
-<pre><code>J(1) = 1;
-J(2n) = 2J(n) - 1    n≥1;
-J(2n+1) = 2J(n) + 1    n≥1;
-</code></pre><p>这个递推式按照指数形式缩减n，但是这种形式不便于计算，我们需要找到一种封闭的形式，通常可以看到更多的信息。</p>
-<p>这个解答使用 Common Lisp 描述如下：</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"Please input the number: "</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">setf</span> n <span class="list">(<span class="keyword">read</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">defun</span> josephus <span class="list">(<span class="keyword">n</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">=</span> n <span class="number">1</span>)</span> <span class="number">1</span>)</span></span><br><span class="line">    <span class="list">(<span class="list">(<span class="keyword">=</span> <span class="list">(<span class="keyword">mod</span> n <span class="number">2</span>)</span> <span class="number">0</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> <span class="list">(<span class="keyword">josephus</span> <span class="list">(<span class="keyword">/</span> n <span class="number">2</span>)</span>)</span>)</span> <span class="number">1</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">t</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">*</span> <span class="number">2</span> <span class="list">(<span class="keyword">josephus</span> <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">-</span> n <span class="number">1</span>)</span> <span class="number">2</span>)</span>)</span>)</span> <span class="number">1</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">format</span> <span class="literal">t</span> <span class="string">"Alive: ~A~%"</span> <span class="list">(<span class="keyword">josephus</span> n)</span>)</span></span><br></pre></td></tr></table></figure>
-<p>下面这个式子是显而易见的：</p>
-<pre><code>J(2n+1) - J(2n) = 2;
-</code></pre><p>使用这个递推关系或者上面的程序可以得出下面这张表：</p>
-<table>
-<thead>
-<tr>
-<th>n</th>
-<th>1</th>
-<th>.</th>
-<th>2</th>
-<th>3</th>
-<th>.</th>
-<th>4</th>
-<th>5</th>
-<th>6</th>
-<th>7</th>
-<th>.</th>
-<th>8</th>
-<th>9</th>
-<th>10</th>
-<th>11</th>
-<th>12</th>
-<th>13</th>
-<th>14</th>
-<th>15</th>
-<th>.</th>
-<th>16</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>J(n)</td>
-<td>1</td>
-<td>.</td>
-<td>1</td>
-<td>3</td>
-<td>.</td>
-<td>1</td>
-<td>3</td>
-<td>5</td>
-<td>7</td>
-<td>.</td>
-<td>1</td>
-<td>3</td>
-<td>5</td>
-<td>7</td>
-<td>9</td>
-<td>11</td>
-<td>13</td>
-<td>15</td>
-<td>.</td>
-<td>1</td>
-</tr>
-</tbody>
-</table>
-<p>尤里卡！按照上面的分组，每一组的J(n)都是从1开始，依次递增2。可以用以下的形式改写上述递推式：</p>
-<pre><code>J(2^m + l) = 2l + 1;
-</code></pre><p>其中 2^m + l = n，2^m 是不超过n的2的最大次幂，l是余下的数。这个结论使用数学归纳法很容易证明。有了这个式子，无需递归就可以线性时间解决这个问题。</p>
-<h2 id="u9012_u63A8_u5F0F_u4E0E_u8FDB_u4F4D_u5236"><a href="#u9012_u63A8_u5F0F_u4E0E_u8FDB_u4F4D_u5236" class="headerlink" title="递推式与进位制"></a>递推式与进位制</h2><p>上述递推式涉及到2的次幂，很容易联想到二进制。如果令：</p>
-<pre><code>n (radix 10) = AmAm-1...A0 (radix 2)
-n = Am * 2^m + Am-1 * 2^m-1 + ... + A0
-</code></pre><p>那么：</p>
-<pre><code>Am = 1
-l = Am-1 * 2^m-1 + ... + A0
+<h4 id="ex1-46__u8FED_u4EE3_u5F0F_u6539_u8FDB"><a href="#ex1-46__u8FED_u4EE3_u5F0F_u6539_u8FDB" class="headerlink" title="ex1.46 迭代式改进"></a>ex1.46 迭代式改进</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">iterative-improve</span> close-enough? improve)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">first-guess</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">try</span> guess)</span></span><br><span class="line">      <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">next</span> <span class="list">(<span class="keyword">improve</span> guess)</span>)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">close-enough</span>? guess next)</span></span><br><span class="line">          next</span><br><span class="line">          <span class="list">(<span class="keyword">try</span> next)</span>)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">try</span> first-guess)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fixed-point</span> f first-guess)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> tolerance <span class="number">0.00001</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">close-enough</span>? v1 v2)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> v1 v2)</span>)</span> tolerance)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">f</span> guess)</span>)</span></span><br><span class="line">  <span class="list">(<span class="list">(<span class="keyword">iterative-improve</span> close-enough? improve)</span> first-guess)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">sqrt</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> dx <span class="number">0.00001</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">close-enough</span>? v1 v2)</span></span><br><span class="line">    <span class="list">(<span class="keyword">&lt;</span> <span class="list">(<span class="keyword">abs</span> <span class="list">(<span class="keyword">-</span> v1 v2)</span>)</span> dx)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">improve</span> guess)</span></span><br><span class="line">    <span class="list">(<span class="keyword">average</span> guess <span class="list">(<span class="keyword">/</span> x guess)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">average</span> x y)</span></span><br><span class="line">    <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> x y)</span> <span class="number">2</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="list">(<span class="keyword">iterative-improve</span> close-enough? improve)</span> <span class="number">1.0</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+            
+                
 
-J(n) = 2*(Am-1 * 2^m-1 + ... + A0) + 1
-     = Am-1 * 2^m + ... + A0 * 2 + 1
-     = Am-1Am-2...A0Am (radix 2)
-</code></pre><p>好了，一个很明显的规律浮现了：</p>
-<pre><code>J(n) = n对应二进制数循环左移一位
-</code></pre><p>验证一下：</p>
-<pre><code>J(10) = J(1010 (radix 2)) = 101 (radix 2) = 5
-J(15) = J(1111 (radix 2)) = 1111 (radix 2) = 15
-</code></pre><p>好了，虽然同为线性时间，但这个解比上一个解更加简洁，效率稍微高一点。</p>
-<h2 id="u95EE_u9898_u63A8_u5E7F"><a href="#u95EE_u9898_u63A8_u5E7F" class="headerlink" title="问题推广"></a>问题推广</h2><p>上述问题描述的是每两个人有一个人死于非命，推广成一般情形：每隔a个人有一个人死于非命。那么上述递推式的形式转换成：</p>
-<pre><code>J(1) = a
-J(2) = b
-...
-J(n-1) = c
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/SICP/">SICP</a>
 
-J(an) = a * J(n) + x
-...
-J(an + (a-1)) = a * J(n) + z
-</code></pre><p>我们猜测J(n)与a进制有对应的关系。将n表示为n进制数：</p>
-<pre><code>n = Am * a^m + ... + A1 * a + A0
-</code></pre><ul>
-<li>n / a 以后余数 A0，使用 J(an+A0) 与 J(n) 关系的递推式。</li>
-<li>n / a / a 以后余数 A1，使用 J(an+A1) 与 J(n) 关系的递推式。</li>
-<li>依次类推…</li>
-<li>n / a^m 以后，只剩下余数l，这时递推式结束，结果是 J(l) 对应的值。</li>
-</ul>
-<p>上述过程需要好好理解。重新整理上述过程，将它们联系起来，可以发现：</p>
-<pre><code>J(an+A0) 与 J(n) 关系的递推式常量值需乘以 3^0，J(an+A1) 与 J(n) 关系的递推式常量值需乘以 3^1，...，J(an+Am-1) 与 J(n) 关系的递推式常量值需乘以 3^m-1，J(l)需乘以 3^m。
-</code></pre><p>也就是说，除了最高位，其它位都是选择递推式的常量值，最高位选择初始值。然后相加即为结果。</p>
-<p>描述太过抽象，举个简单的例子：</p>
-<pre><code>J(1) = 4
-J(2) = 8
-J(3n) = 3J(n) - 1
-J(3n+1) = 3J(n) + 4
-J(3n+2) = 3J(n) + 5
-求J(101)
-</code></pre><p>使用上述结论：</p>
-<pre><code>J(101) = J(10202 (radix 3)) = 4*3^4 - 1*3^3 + 5*3^2 -1*3^1 + 5 = 344
-</code></pre><p>验证一下：</p>
-<pre><code>J(101) = J(3*33+2) 
-        = 3*J(33) + 5 
-        = 3*J(3*11) + 5 
-        = 3*(3*J(11) - 1) + 5 
-        = 3*(3*J(3*3+2) - 1) + 5 
-        = 3*(3*(3*J(3)+5) - 1) + 5 
-        = 3*(3*(3*(3*J(1) - 1)+5) - 1) + 5 
-        = 3*(3*(3*(3*4 - 1)+5) - 1) + 5 
-        = 344
-</code></pre><p>bingo！好了，此类递归式以后可以很容易求解了。</p>
-<h2 id="u91CD_u65B0_u5BA1_u89C6"><a href="#u91CD_u65B0_u5BA1_u89C6" class="headerlink" title="重新审视"></a>重新审视</h2><p>上述一般的规律，实际上就是对递推式求解过程的重新编码，利用进位制转换关系，简化了求解过程。显然利用递归使用原递推式编程实现是很简单的，但效率不高。</p>
-<p>一般的规律当然适用于特殊的二进制，但是我们在问题求解中得到的结论却是另一种，我们来重新审视一下：</p>
-<pre><code>n = Am*2^m +...+ A0
-</code></pre><p>利用上述规律，n展开后，当某一位为0时替换成－1，为1时不变。即：</p>
-<pre><code>n对应的二进制 － n按位取反
-</code></pre><p>也就是说，<code>n循环左移一位的值</code>和<code>n对应的二进制数</code> － <code>n按位取反后的二进制数</code>是相等的。</p>
-<p>拿J(10)验证一下：</p>
-<pre><code>1011 - 100 = 111
-1010 - 101 = 101
-...
-</code></pre><p>小小的问题中竟然隐藏着这么多的奥秘！如此简洁的解答体现出数学之美！</p>
-<h2 id="u540E_u8BB0"><a href="#u540E_u8BB0" class="headerlink" title="后记"></a>后记</h2><p>本篇文章问题推广以前部分详细描述可见其第一章，受启发于参考文献,问题推广及以后部分为自由发挥，如有问题请指正。</p>
-<h2 id="u53C2_u8003_u6587_u732E"><a href="#u53C2_u8003_u6587_u732E" class="headerlink" title="参考文献"></a>参考文献</h2><ul>
-<li>Concrete Mathematics: A Fundation for Computer Science<br>  <strong><em>Ronald L. Graham, Donald E. Knuth, Oren Patashnik</em></strong></li>
-</ul>
-]]></content>
-    <summary type="html">
-    <![CDATA[<!-- TOC -->
-<p>约瑟夫问题(The Josephus Problem)是计算机科学中一个经典问题，编程语言教学中它经常作为练习题。虽然司空见惯，背后却隐藏着玄机。它又如何与进位制转换扯上关系呢？本篇文章从递归的角度来重新解析这个流传近2000年的老问题，并提出一类递推式的快速解法。</p>]]>
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/04/note-to-iatlc/"  data-tooltip="《自动机理论，语言和计算导论》笔记">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/29/recursion-and-iteration/" data-tooltip="递归与迭代">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Hover Winter. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/03/04/note-to-iatlc/"  data-tooltip="《自动机理论，语言和计算导论》笔记">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/02/29/recursion-and-iteration/" data-tooltip="递归与迭代">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#table-of-contents">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
     
-    </summary>
+        
     
-      <category term="约瑟夫问题" scheme="http://blog.carpela.me/tags/%E7%BA%A6%E7%91%9F%E5%A4%AB%E9%97%AE%E9%A2%98/"/>
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/photo.jpg"/>
+        
+            <h4 id="about-card-name">Hover Winter</h4>
+        
+            <h5 id="about-card-bio"><p>A student devote to the computer science</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>2015 Internship in Alibaba</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div>
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
     
-      <category term="递归" scheme="http://blog.carpela.me/tags/%E9%80%92%E5%BD%92/"/>
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://blog.carpela.me/2016/03/02/solution-to-sicp-part-1/';
+                 
+                    this.page.identifier = '2016/03/02/solution-to-sicp-part-1/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'hoverwinter';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
     
-      <category term="计算机科学" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/"/>
-    
-      <category term="数学之美" scheme="http://blog.carpela.me/categories/%E8%AE%A1%E7%AE%97%E6%9C%BA%E7%A7%91%E5%AD%A6/%E6%95%B0%E5%AD%A6%E4%B9%8B%E7%BE%8E/"/>
-    
-  </entry>
-  
-  <entry>
-    <title><![CDATA[博客变迁之路]]></title>
-    <link href="http://blog.carpela.me/2016/01/21/about-my-blog/"/>
-    <id>http://blog.carpela.me/2016/01/21/about-my-blog/</id>
-    <published>2016-01-20T16:11:26.000Z</published>
-    <updated>2016-01-20T17:51:56.000Z</updated>
-    <content type="html"><![CDATA[<p>早在2014年10月，我就利用Jekyll在Github上搭起了自己的博客，也写不少东西，然而经过数次变故，博文一篇都没留下，其中很大一部分原因是觉得写的博文质量不高。写博客是个好习惯，学习的同时，记录见解，与诸君分享，加深理解。于是乎，用心写作，从头开始，以此文作为博客新的开端。</p>
-<a id="more"></a>
-<h2 id="v1-0"><a href="#v1-0" class="headerlink" title="v1.0"></a>v1.0</h2><p>我虽不是个Rubyer，但刚接触Jekyll，我便顶着官网的英文文档理解它的原理，同时学习Liquid模版语言的使用。我有一定的Web开发基础，用过别的模板语言，所以这个过程还算顺利。那时做的一个东西用到了Bootstrap，于是乎，博客1.0是在Jekyll-Bootstrap的基础上改出来的，J.B. 没有什么好的主题，我也就被迫写着各种Javascript，HTML，CSS。虽不是专业前端，但要搞一个漂亮的博客，我的那些知识还是够用的。</p>
-<p>当时的博客背景是竹子，看起来很清新。左边是用喜欢的英文字体写的个人信息，而且使用JQuery加上触发器的原理搞了一个浮动效果：半透明的圆角矩形框的文章列表下拉超过窗口高度的一半时，信息栏便会滚动到另一个位置固定(JQuery的动画)；拉回页面顶端，信息栏以同样的速度回到原来的位置。每次打开自己的博客我都要来滑几个来回，来当做一种消遣。想想也是无聊。页面的半透明效果和背景真的很搭，整个博客有矩形的地方都弄成圆角。首页文章列表还有隐隐约约的阴影，看起来相当nice。</p>
-<p>这个是所有版本里定制程度最高的，有上百次的commit记录，有同学说它很文艺。当时里面就只有四篇关于Linux内核及内核模块网络通信的博客和一篇抒发感情的文章，这几篇文章是用心的写。在用大屏显示器看它之前，我都没想过要换其它主题。一次偶然，发现背景图片在21英尺显示器上有点小，找不到相同的大图，小图拉伸以后不好看。再加上碰到一个主题不错，就换了。</p>
-<h2 id="v2-0"><a href="#v2-0" class="headerlink" title="v2.0"></a>v2.0</h2><p>这次使用的是<a href="https://github.com/iHavee/iHavee.github.io" target="_blank" rel="external">iHavee</a>的主题，点击去<a href="http://ihavee.github.io/" target="_blank" rel="external">预览</a>。</p>
-<p>在它基础上大致改了一下，修改了分页的位置，模块的位置，首页文章标题下显示的内容等，都是一些小的改动。这个主题总体来说不错，但是有点花哨，当时又在学很多东西，然后博客里面记录了许多算是wiki的东西，只顾着学而没有回头整理，使得博客的内容看起来有点乱。</p>
-<p>这个时候想把博客迁到自己在Digital Ocean的VPS上，改用WordPress，但是看着乱乱的内容便没动，最后在VPS上建了个个人主页。</p>
-<h2 id="v3-0"><a href="#v3-0" class="headerlink" title="v3.0"></a>v3.0</h2><p>过了一段时间，想打理博客了，找了一个简洁的主题<a href="https://github.com/muan/scribble" target="_blank" rel="external">Scribble</a>，给它加上了Katex支持，通过post页首的yaml属性tex值判断是否开启。然后在这个主题下开了另外一个版块，将所有的post过滤为两部分，一部分是计算机相关，另一部分是生活杂记。这时候发现以前写的文章很多内容都是在别的地方可以找到的，自己的独特思考不多，于是都被删掉了。同时萌生了建一个wiki的想法。</p>
-<p>用着用着，发现Katex（包括MathJax）不是太好用，一些数学公式比如有case的无法解析，一篇关于递归问题求解，几种递推公式和进制转换之间联系的博客被搁置，还有一部分原因是在钻研SICP，准备更加深入理解这个问题后再操笔。</p>
-<p>当看到有一同学的博客使用这个主题，心里隐隐的有种能换就换的冲动。</p>
-<h2 id="v4-0"><a href="#v4-0" class="headerlink" title="v4.0"></a>v4.0</h2><p>在微博大V 网络冷眼的推送中，看到一个程序员写的知识管理的文章，他用 simiki 这个工具来管理那些碎片知识。我立马就把自己的wiki建了起来，放在Github的项目gh-pages分支。</p>
-<p>在这之前，看到别人使用 hexo 搭建博客，性能不错，插件很多，主题也比较新，并且一直在更新。看到了一款喜欢的主题：<a href="https://github.com/LouisBarranqueiro/hexo-theme-tranquilpeak" target="_blank" rel="external">Tranquilpeak</a> ，于是使用了一年多的Jekyll被抛弃，乘上了hexo的快船。</p>
-<p>最终，<a href="http://wiki.carpela.me" target="_blank" rel="external">Wiki</a> 和 <a href="http://blog.carpela.me">Blog</a> 的格局形成。</p>
-<p>好好写作吧！</p>
-]]></content>
-    <summary type="html">
-    <![CDATA[<p>早在2014年10月，我就利用Jekyll在Github上搭起了自己的博客，也写不少东西，然而经过数次变故，博文一篇都没留下，其中很大一部分原因是觉得写的博文质量不高。写博客是个好习惯，学习的同时，记录见解，与诸君分享，加深理解。于是乎，用心写作，从头开始，以此文作为博客新的开端。</p>]]>
-    
-    </summary>
-    
-      <category term="流水帐" scheme="http://blog.carpela.me/tags/%E6%B5%81%E6%B0%B4%E5%B8%90/"/>
-    
-      <category term="杂记" scheme="http://blog.carpela.me/categories/%E6%9D%82%E8%AE%B0/"/>
-    
-  </entry>
-  
-</feed>
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','7HEJue7Z2VadUFupdb9W','2.0.0');
+    </script>
+
+
+</html>
