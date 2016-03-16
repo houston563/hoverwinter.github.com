@@ -4,7 +4,7 @@
   <subtitle><![CDATA[Carpela's blog]]></subtitle>
   <link href="/atom.xml" rel="self"/>
   <link href="http://blog.carpela.me/"/>
-  <updated>2016-03-10T11:26:29.000Z</updated>
+  <updated>2016-03-16T13:31:54.000Z</updated>
   <id>http://blog.carpela.me/</id>
   
   <author>
@@ -19,7 +19,7 @@
     <link href="http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/"/>
     <id>http://blog.carpela.me/2016/03/10/solution-to-sicp-part-2/</id>
     <published>2016-03-10T05:39:23.000Z</published>
-    <updated>2016-03-10T11:26:29.000Z</updated>
+    <updated>2016-03-16T13:31:54.000Z</updated>
     <content type="html"><![CDATA[<!-- TOC -->
 <p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>
 <a id="more"></a>
@@ -37,7 +37,80 @@
 <p>容易猜测 three, four为依次多了个(f xx)，所以加法中，加1最外圈是一个f，加n就是最外圈产生n个f，而(m f)就是</p>
 <p>(lambda (x) (f (f …(f x)))) 共m个f</p>
 <p>将((n f) x)作为上面的x代入即是n+m结果。</p>
-<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">add</span> m n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="list">(<span class="keyword">m</span> f)</span> <span class="list">(<span class="list">(<span class="keyword">n</span> f)</span> x)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>]]></content>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">add</span> m n)</span></span><br><span class="line">  <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">f</span>)</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="list">(<span class="keyword">m</span> f)</span> <span class="list">(<span class="list">(<span class="keyword">n</span> f)</span> x)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-7__u533A_u95F4_u57FA_u672C_u64CD_u4F5C"><a href="#ex2-7__u533A_u95F4_u57FA_u672C_u64CD_u4F5C" class="headerlink" title="ex2.7 区间基本操作"></a>ex2.7 区间基本操作</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">upper-bound</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cdr</span> x)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">lower-bound</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">car</span> x)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-8__u533A_u95F4_u76F8_u51CF"><a href="#ex2-8__u533A_u95F4_u76F8_u51CF" class="headerlink" title="ex2.8 区间相减"></a>ex2.8 区间相减</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">sub-interval</span> x y)</span></span><br><span class="line">  <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">lower-bound</span> x)</span> <span class="list">(<span class="keyword">upper-bound</span> y)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">upper-bound</span> x)</span> <span class="list">(<span class="keyword">lower-bound</span> y)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-9__u533A_u95F4_u5BBD_u5EA6"><a href="#ex2-9__u533A_u95F4_u5BBD_u5EA6" class="headerlink" title="ex2.9 区间宽度"></a>ex2.9 区间宽度</h4><p>令 m:(a b) n:(c d) 表示两个区间：</p>
+<p>m+n = (a+c b+d)</p>
+<p>width(m+n) = (b+d - (a+c))/2 = (b-a)/2 + (d-c)/2 = width(m)+width(n)</p>
+<p>m-n = (a-d b-c)</p>
+<p>width(m-n) = (b-c - (a-d))/2 = (b-a)/2 - (d-c)/2 = width(m)-width(n)</p>
+<p>m:(3 4) n:(1 2)</p>
+<p>m/n = (1.5 4) width(m)/width(n) = 1 ≠ width(m/n) = 1.25</p>
+<p>m<em>n = (3 8) width(m)</em>width(n) = 1 ≠ width(m*n) = 2.5</p>
+<h4 id="ex2-10__u88AB_u9664_u533A_u95F4_u5305_u542B0"><a href="#ex2-10__u88AB_u9664_u533A_u95F4_u5305_u542B0" class="headerlink" title="ex2.10 被除区间包含0"></a>ex2.10 被除区间包含0</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">div-interval</span> x y)</span></span><br><span class="line">  <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">&lt;=</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">lower-bound</span> y)</span> <span class="list">(<span class="keyword">upper-bound</span> y)</span>)</span> <span class="number">0</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">error</span> <span class="string">"Interval contains 0"</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">mul-interval</span> x <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">/</span> <span class="number">1</span> <span class="list">(<span class="keyword">lower-bound</span> y)</span>)</span> <span class="list">(<span class="keyword">/</span> <span class="number">1</span> <span class="list">(<span class="keyword">upper-bound</span> y)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-11__u533A_u95F4_u4E58_u6CD5_u4F18_u5316"><a href="#ex2-11__u533A_u95F4_u4E58_u6CD5_u4F18_u5316" class="headerlink" title="ex2.11 区间乘法优化"></a>ex2.11 区间乘法优化</h4><p>题目表述有点问题。按照每个区间和0之间关系，有一种情况必定要算4次乘法，而其他的是两次。</p>
+<p>不妨令 m:(a b) n:(c d) 表示两个区间，a0b表示0和两个区间大小关系：a &lt; 0 &lt; b</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0cd</th>
+<th>c0d</th>
+<th>cd0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0ab</td>
+<td>(ac,bd)</td>
+<td>(bc,bd)</td>
+<td>(bc,ad)</td>
+</tr>
+<tr>
+<td>a0b</td>
+<td>(ad,bd)</td>
+<td>(min(ad,bc),max(ac,bd))</td>
+<td>(bc,ac)</td>
+</tr>
+<tr>
+<td>ab0</td>
+<td>(ad,bc)</td>
+<td>(ad,ac)</td>
+<td>(bd,ac)</td>
+</tr>
+</tbody>
+</table>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">mul-interval</span> x y)</span></span><br><span class="line">  <span class="list">(<span class="keyword">let</span> <span class="list">(<span class="list">(<span class="keyword">a</span> <span class="list">(<span class="keyword">lower-bound</span> y)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">b</span> <span class="list">(<span class="keyword">upper-bound</span> y)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">c</span> <span class="list">(<span class="keyword">lower-bound</span> x)</span>)</span></span><br><span class="line">        <span class="list">(<span class="keyword">d</span> <span class="list">(<span class="keyword">upper-bound</span> x)</span>)</span>)</span></span><br><span class="line">    <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&gt;=</span> a <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> c <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> a c)</span> <span class="list">(<span class="keyword">*</span> b d)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&gt;=</span> a <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&lt;=</span> c <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> d <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> b c)</span> <span class="list">(<span class="keyword">*</span> b d)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&gt;=</span> a <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&lt;=</span> d <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> b c)</span> <span class="list">(<span class="keyword">*</span> a d)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;=</span> a <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> b <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> c <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> a d)</span> <span class="list">(<span class="keyword">*</span> b d)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;=</span> a <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> b <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&lt;=</span> c <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> d <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">min</span> <span class="list">(<span class="keyword">*</span> a d)</span> <span class="list">(<span class="keyword">*</span> b c)</span>)</span> <span class="list">(<span class="keyword">max</span> <span class="list">(<span class="keyword">*</span> a c)</span> <span class="list">(<span class="keyword">*</span> b d)</span>)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;=</span> a <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> b <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&lt;=</span> d <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> b c)</span> <span class="list">(<span class="keyword">*</span> a c)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;=</span> b <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> c <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> a d)</span> <span class="list">(<span class="keyword">*</span> b c)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;=</span> b <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&lt;=</span> c <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&gt;=</span> d <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> a d)</span> <span class="list">(<span class="keyword">*a</span> c)</span>)</span>)</span></span><br><span class="line">          <span class="list">(<span class="list">(<span class="keyword">and</span> <span class="list">(<span class="keyword">&lt;=</span> b <span class="number">0</span>)</span> <span class="list">(<span class="keyword">&lt;=</span> d <span class="number">0</span>)</span>)</span></span><br><span class="line">              <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">*</span> b d)</span> <span class="list">(<span class="keyword">*</span> a c)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-12__u4E2D_u5FC3_u70B9_u767E_u5206_u6BD4_u5B9A_u4E49_u533A_u95F4"><a href="#ex2-12__u4E2D_u5FC3_u70B9_u767E_u5206_u6BD4_u5B9A_u4E49_u533A_u95F4" class="headerlink" title="ex2.12 中心点百分比定义区间"></a>ex2.12 中心点百分比定义区间</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">make-center-percent</span> c p)</span></span><br><span class="line">  <span class="list">(<span class="keyword">make-interval</span> <span class="list">(<span class="keyword">-</span> c <span class="list">(<span class="keyword">*</span> c p)</span>)</span> <span class="list">(<span class="keyword">+</span> c <span class="list">(<span class="keyword">*</span> c p)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">center</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">+</span> <span class="list">(<span class="keyword">upper-bound</span> x)</span> <span class="list">(<span class="keyword">lower-bound</span> x)</span>)</span> <span class="number">2</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">percent</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">/</span> <span class="list">(<span class="keyword">-</span> <span class="list">(<span class="keyword">upper-bound</span> x)</span> <span class="list">(<span class="keyword">lower-bound</span> x)</span>)</span> <span class="number">2</span> <span class="list">(<span class="keyword">center</span> x)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-13__u4E58_u79EF_u8BEF_u5DEE_u767E_u5206_u6BD4"><a href="#ex2-13__u4E58_u79EF_u8BEF_u5DEE_u767E_u5206_u6BD4" class="headerlink" title="ex2.13 乘积误差百分比"></a>ex2.13 乘积误差百分比</h4><p>不妨令 m:[a p] n:[b q] , a,b&gt;0 那么：</p>
+<p>  m<em>n = ((a-ap)</em>(b-bq) (a+ap)*(b+bq))<br>      = (ab-abq-abp+abpq, ab+abq+abp+abpq)<br>      = (ab+abpq - ab(p+q), ab+abpq + ab(p+q))<br>      = [ab(1+pq) (p+q)]</p>
+<p>新的误差百分比 (p+q)</p>
+<h4 id="ex2-14__u533A_u95F4_u9664_u6CD5_u95EE_u9898"><a href="#ex2-14__u533A_u95F4_u9664_u6CD5_u95EE_u9898" class="headerlink" title="ex2.14 区间除法问题"></a>ex2.14 区间除法问题</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> a <span class="list">(<span class="keyword">make-interval</span> <span class="number">1.0</span> <span class="number">2.0</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> b <span class="list">(<span class="keyword">make-interval</span> <span class="number">3.0</span> <span class="number">4.0</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">par1</span> a b)</span> <span class="comment">;(0.5, 2.0)</span></span><br><span class="line"><span class="list">(<span class="keyword">par2</span> a b)</span> <span class="comment">;(0.75, 1.3333333333)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> m <span class="list">(<span class="keyword">make-center-percent</span> <span class="number">5</span> <span class="number">0.0001</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> n <span class="list">(<span class="keyword">make-center-percent</span> <span class="number">8</span> <span class="number">0.000001</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">par1</span> m n)</span> <span class="comment">;(3.076492088, 3.077354099)</span></span><br><span class="line"><span class="list">(<span class="keyword">par2</span> m n)</span> <span class="comment">;(3.076732537, 3.077113602)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">div-interval</span> b b)</span>  <span class="comment">;(0.75, 1.333333)</span></span><br><span class="line"><span class="list">(<span class="keyword">div-interval</span> b a)</span>  <span class="comment">;(1.5, 4.0)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-15__u5E76_u8054_u7535_u963B_u66F4_u597D_u7684_u516C_u5F0F"><a href="#ex2-15__u5E76_u8054_u7535_u963B_u66F4_u597D_u7684_u516C_u5F0F" class="headerlink" title="ex2.15 并联电阻更好的公式"></a>ex2.15 并联电阻更好的公式</h4><p>注意到 A/A != 1 而是一个区间：</p>
+<p>  R1R2/(R1+R2)=1/(R1/R1R2+ R2/R1R2)!=1/(1/R2+1/R1)</p>
+<p>所以减少非确定量的使用可以提高精度，Eva的说法是正确的。</p>
+<h4 id="ex2-16__u65E0_u7F3A_u9677_u7684_u533A_u95F4_u7B97_u672F_u5305"><a href="#ex2-16__u65E0_u7F3A_u9677_u7684_u533A_u95F4_u7B97_u672F_u5305" class="headerlink" title="ex2.16 无缺陷的区间算术包"></a>ex2.16 无缺陷的区间算术包</h4><p>解释如上题。要解决这个问题，要确保同一个区间相除结果为1。</p>
+<p><strong><em>具体实现仍在构思中</em></strong></p>
+<h3 id="2-2__u5C42_u6B21_u6027_u6570_u636E_u548C_u95ED_u5305_u6027_u8D28"><a href="#2-2__u5C42_u6B21_u6027_u6570_u636E_u548C_u95ED_u5305_u6027_u8D28" class="headerlink" title="2.2 层次性数据和闭包性质"></a>2.2 层次性数据和闭包性质</h3><p>带点尾部记法形式的define：表示任意个数的参数。</p>
+<h4 id="ex2-17_last-pair_u8FC7_u7A0B"><a href="#ex2-17_last-pair_u8FC7_u7A0B" class="headerlink" title="ex2.17 last-pair过程"></a>ex2.17 last-pair过程</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">last-pair</span> list1)</span></span><br><span class="line">  <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span>? <span class="list">(<span class="keyword">cdr</span> list1)</span>)</span></span><br><span class="line">    list1</span><br><span class="line">    <span class="list">(<span class="keyword">last-pair</span> <span class="list">(<span class="keyword">cdr</span> list1)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-18_reverse_u8FC7_u7A0B"><a href="#ex2-18_reverse_u8FC7_u7A0B" class="headerlink" title="ex2.18 reverse过程"></a>ex2.18 reverse过程</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">reverse</span> list1)</span></span><br><span class="line">  <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span>? <span class="list">(<span class="keyword">cdr</span> list1)</span>)</span></span><br><span class="line">    list1</span><br><span class="line">    <span class="list">(<span class="keyword">append</span> <span class="list">(<span class="keyword">reverse</span> <span class="list">(<span class="keyword">cdr</span> list1)</span>)</span> <span class="list">(<span class="keyword">list</span> <span class="list">(<span class="keyword">car</span> list1)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-19__u65B0_u7684_u5151_u6362_u96F6_u94B1"><a href="#ex2-19__u65B0_u7684_u5151_u6362_u96F6_u94B1" class="headerlink" title="ex2.19 新的兑换零钱"></a>ex2.19 新的兑换零钱</h4><p>表的排列不会造成影响，只是相当于把递归树的形状改变了，树的深度和节点数都没变化。也就是说，兑换零钱的种类数和先兑换哪种硬币无关。</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">no-more</span>? x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">null</span>? x)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">first-denomination</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">car</span> x)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">except-first-denomination</span> x)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cdr</span> x)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-20__u76F8_u540C_u5947_u5076_u6027"><a href="#ex2-20__u76F8_u540C_u5947_u5076_u6027" class="headerlink" title="ex2.20 相同奇偶性"></a>ex2.20 相同奇偶性</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">same-parity</span> a . b)</span></span><br><span class="line">  <span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">same-parity-iter</span> l p? val)</span></span><br><span class="line">    <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span>? l)</span></span><br><span class="line">        val</span><br><span class="line">        <span class="list">(<span class="keyword">same-parity-iter</span> <span class="list">(<span class="keyword">cdr</span> l)</span> p?</span><br><span class="line">          <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">p</span>? <span class="list">(<span class="keyword">car</span> l)</span>)</span></span><br><span class="line">            <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">car</span> l)</span> val)</span></span><br><span class="line">            val)</span>)</span>)</span>)</span></span><br><span class="line">  <span class="list">(<span class="keyword">same-parity-iter</span> b <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">even</span>? a)</span> even? odd?)</span> <span class="quoted">'()</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-21_square-list"><a href="#ex2-21_square-list" class="headerlink" title="ex2.21 square-list"></a>ex2.21 square-list</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">square-list</span> items)</span></span><br><span class="line">  <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span>? items)</span></span><br><span class="line">    <span class="quoted">'()</span></span><br><span class="line">    <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">*</span> <span class="list">(<span class="keyword">car</span> items)</span> <span class="list">(<span class="keyword">car</span> items)</span>)</span> <span class="list">(<span class="keyword">square-list</span> <span class="list">(<span class="keyword">cdr</span> items)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">square-list</span> items)</span></span><br><span class="line">  <span class="list">(<span class="keyword">map</span> <span class="list">(<span class="keyword">lambda</span> <span class="list">(<span class="keyword">x</span>)</span> <span class="list">(<span class="keyword">*</span> x x)</span>)</span> items)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-22__u751F_u6210_u8868_u9012_u5F52_u8FC7_u7A0B_u5BF9_u5E94_u7684_u8FED_u4EE3"><a href="#ex2-22__u751F_u6210_u8868_u9012_u5F52_u8FC7_u7A0B_u5BF9_u5E94_u7684_u8FED_u4EE3" class="headerlink" title="ex2.22 生成表递归过程对应的迭代"></a>ex2.22 生成表递归过程对应的迭代</h4><p>上一题目中使用的迭代过程也会产生这样的结果，因为每一次迭代都是往表头添加东西</p>
+<p>修改之后answer本身是一个列表，(cons listp element)结果不是list</p>
+<p>可以的办法是迭代中使用append过程，这样效率不高，在输入或输出时使用reverse即可。</p>
+<h4 id="ex2-23_for-each"><a href="#ex2-23_for-each" class="headerlink" title="ex2.23 for-each"></a>ex2.23 for-each</h4><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">(define (for-each f items)&#10;  (f (car items))&#10;  (if (null? (cdr items))&#10;    &#39;done&#10;    (for-each f (cdr items))))</span><br></pre></td></tr></table></figure>
+<h4 id="ex2-24__u76D2_u5B50_u7ED3_u6784"><a href="#ex2-24__u76D2_u5B50_u7ED3_u6784" class="headerlink" title="ex2.24 盒子结构"></a>ex2.24 盒子结构</h4><p>结果是 (1 (2 (3 4)))</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">      (1 (2 (3 4)))</span><br><span class="line">    /              \        </span><br><span class="line">1               (2 (3 4))</span><br><span class="line">             /         \</span><br><span class="line">          2            (3 4)</span><br><span class="line">                     /      \</span><br><span class="line">                    3        4</span><br></pre></td></tr></table></figure>
+<h4 id="ex2-25__u53D6_u503C"><a href="#ex2-25__u53D6_u503C" class="headerlink" title="ex2.25 取值"></a>ex2.25 取值</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> items <span class="list">(<span class="keyword">list</span> <span class="number">1</span> <span class="number">3</span> <span class="list">(<span class="keyword">list</span> <span class="number">5</span> <span class="number">7</span>)</span> <span class="number">9</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">cdr</span> items)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> items <span class="list">(<span class="keyword">list</span> <span class="list">(<span class="keyword">list</span> <span class="number">7</span>)</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">car</span> items)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> items <span class="list">(<span class="keyword">list</span> <span class="number">1</span> <span class="list">(<span class="keyword">list</span> <span class="number">2</span> <span class="list">(<span class="keyword">list</span> <span class="number">3</span> <span class="list">(<span class="keyword">list</span> <span class="number">4</span> <span class="list">(<span class="keyword">list</span> <span class="number">5</span> <span class="list">(<span class="keyword">list</span> <span class="number">6</span> <span class="number">7</span>)</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> <span class="list">(<span class="keyword">car</span> <span class="list">(<span class="keyword">cdr</span> items)</span>)</span>)</span>)</span>)</span>)</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-26_cons/append/list"><a href="#ex2-26_cons/append/list" class="headerlink" title="ex2.26 cons/append/list"></a>ex2.26 cons/append/list</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> x <span class="list">(<span class="keyword">list</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> y <span class="list">(<span class="keyword">list</span> <span class="number">4</span> <span class="number">5</span> <span class="number">6</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">append</span> x y)</span> <span class="comment">;(1 2 3 4 5 6)</span></span><br><span class="line"><span class="list">(<span class="keyword">cons</span> x y)</span> <span class="comment">;((1 2 3) 4 5 6)</span></span><br><span class="line"><span class="list">(<span class="keyword">list</span> x y)</span> <span class="comment">;((1 2 3) (4 5 6))</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-27_deep-reverse"><a href="#ex2-27_deep-reverse" class="headerlink" title="ex2.27 deep-reverse"></a>ex2.27 deep-reverse</h4><p>原理和reverse类似，只不过把 (car items) 部分也reverse一下</p>
+<figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">deep-reverse</span> items)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">null</span>? items)</span> <span class="quoted">'()</span>)</span></span><br><span class="line">      <span class="list">(<span class="list">(<span class="keyword">not</span> <span class="list">(<span class="keyword">pair</span>? items)</span>)</span> items)</span></span><br><span class="line">      <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">append</span> <span class="list">(<span class="keyword">deep-reverse</span> <span class="list">(<span class="keyword">cdr</span> items)</span>)</span> <span class="list">(<span class="keyword">list</span> <span class="list">(<span class="keyword">deep-reverse</span> <span class="list">(<span class="keyword">car</span> items)</span>)</span>)</span>)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">append</span> list1 list2)</span></span><br><span class="line">  <span class="list">(<span class="keyword">if</span> <span class="list">(<span class="keyword">null</span>? list1)</span></span><br><span class="line">    list2</span><br><span class="line">    <span class="list">(<span class="keyword">cons</span> <span class="list">(<span class="keyword">car</span> list1)</span> <span class="list">(<span class="keyword">append</span> <span class="list">(<span class="keyword">cdr</span> list1)</span> list2)</span>)</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">define</span> x <span class="list">(<span class="keyword">list</span> <span class="list">(<span class="keyword">list</span> <span class="number">1</span> <span class="number">2</span>)</span> <span class="list">(<span class="keyword">list</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span>)</span></span><br><span class="line"><span class="list">(<span class="keyword">define</span> y <span class="list">(<span class="keyword">list</span> <span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>)</span>)</span></span><br><span class="line"></span><br><span class="line"><span class="list">(<span class="keyword">deep-reverse</span> x)</span></span><br><span class="line"><span class="list">(<span class="keyword">deep-reverse</span> y)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-28__u8F93_u51FA_u53F6_u5B50_u8282_u70B9"><a href="#ex2-28__u8F93_u51FA_u53F6_u5B50_u8282_u70B9" class="headerlink" title="ex2.28 输出叶子节点"></a>ex2.28 输出叶子节点</h4><figure class="highlight lisp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="list">(<span class="keyword">define</span> <span class="list">(<span class="keyword">fringe</span> items)</span></span><br><span class="line">  <span class="list">(<span class="keyword">cond</span> <span class="list">(<span class="list">(<span class="keyword">null</span>? items)</span> <span class="quoted">'()</span>)</span></span><br><span class="line">      <span class="list">(<span class="list">(<span class="keyword">not</span> <span class="list">(<span class="keyword">pair</span>? items)</span>)</span> <span class="list">(<span class="keyword">list</span> items)</span>)</span></span><br><span class="line">      <span class="list">(<span class="keyword">else</span> <span class="list">(<span class="keyword">append</span> <span class="list">(<span class="keyword">fringe</span> <span class="list">(<span class="keyword">car</span> items)</span>)</span> <span class="list">(<span class="keyword">fringe</span> <span class="list">(<span class="keyword">cdr</span> items)</span>)</span>)</span>)</span>)</span>)</span></span><br></pre></td></tr></table></figure>
+<h4 id="ex2-29"><a href="#ex2-29" class="headerlink" title="ex2.29"></a>ex2.29</h4>]]></content>
     <summary type="html">
     <![CDATA[<!-- TOC -->
 <p>本人的SICP的习题解答，记录学习过程。简单的题目就忽略了。</p>]]>
@@ -57,7 +130,7 @@
     <link href="http://blog.carpela.me/2016/03/04/note-to-iatlc/"/>
     <id>http://blog.carpela.me/2016/03/04/note-to-iatlc/</id>
     <published>2016-03-04T05:35:08.000Z</published>
-    <updated>2016-03-10T12:55:07.000Z</updated>
+    <updated>2016-03-11T07:20:32.000Z</updated>
     <content type="html"><![CDATA[<!-- TOC -->
 <p><strong><em>Introduction to Automata Theory, Languages, and Computation</em></strong> 的笔记</p>
 <a id="more"></a>
@@ -352,7 +425,140 @@
 </tbody>
 </table>
 <p>所有以00或01结尾的0,1串</p>
-<p>######</p>
+<h6 id="ex2-3-4"><a href="#ex2-3-4" class="headerlink" title="ex2.3.4"></a>ex2.3.4</h6><p>a）初始未猜测状态，表示出现0-9状态，对应再出现0-9的接受状态</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>…</th>
+<th>9</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;qs</td>
+<td>{qs,q0}</td>
+<td>…</td>
+<td>{qs,q9}</td>
+</tr>
+<tr>
+<td>q0</td>
+<td>qf</td>
+<td>…</td>
+<td>q0</td>
+</tr>
+<tr>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+<td>…</td>
+</tr>
+<tr>
+<td>q9</td>
+<td>q0</td>
+<td>…</td>
+<td>qf</td>
+</tr>
+<tr>
+<td>*qf</td>
+<td>ø</td>
+<td>…</td>
+<td>ø</td>
+</tr>
+</tbody>
+</table>
+<p>b）与a）情况相反，容易构造</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>0</th>
+<th>1</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;q0</td>
+<td>{q0,q1,q5}</td>
+<td>{q0}</td>
+</tr>
+<tr>
+<td>q1</td>
+<td>ø</td>
+<td>{q2}</td>
+</tr>
+<tr>
+<td>q2</td>
+<td>ø</td>
+<td>{q3}</td>
+</tr>
+<tr>
+<td>q3</td>
+<td>ø</td>
+<td>{q4}</td>
+</tr>
+<tr>
+<td>q4</td>
+<td>ø</td>
+<td>{q5}</td>
+</tr>
+<tr>
+<td>q5</td>
+<td>{q6}</td>
+<td>{q2}</td>
+</tr>
+<tr>
+<td>*q6</td>
+<td>{q6}</td>
+<td>{q6}</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h3 id="u0190-NFA"><a href="#u0190-NFA" class="headerlink" title="Ɛ-NFA"></a>Ɛ-NFA</h3><p>与NFA相比，Ɛ闭包，允许空转移。</p>
+<h6 id="ex2-5-2"><a href="#ex2-5-2" class="headerlink" title="ex2.5.2"></a>ex2.5.2</h6><p>ECLOSE(p) = {p,q,r}</p>
+<p>ECLOSE(q) = {q}</p>
+<p>ECLOSE(r) = {r}</p>
+<p>转换成DFA：</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>a</th>
+<th>b</th>
+<th>c</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>-&gt;*s0</td>
+<td>s0</td>
+<td>s1</td>
+<td>s2</td>
+</tr>
+<tr>
+<td>s1</td>
+<td>s0</td>
+<td>s2</td>
+<td>s0</td>
+</tr>
+<tr>
+<td>*s2</td>
+<td>#</td>
+<td>#</td>
+<td>#</td>
+</tr>
+</tbody>
+</table>
+<p>为了简单起见，#表示死状态，省略到死状态的转移</p>
+<h2 id="Chapter_3_uFF1A_u6B63_u5219_u8868_u8FBE_u5F0F_u4E0E_u6B63_u5219_u8BED_u8A00"><a href="#Chapter_3_uFF1A_u6B63_u5219_u8868_u8FBE_u5F0F_u4E0E_u6B63_u5219_u8BED_u8A00" class="headerlink" title="Chapter 3：正则表达式与正则语言"></a>Chapter 3：正则表达式与正则语言</h2><p>正则表达式提供了自动机所没有的东西：一种表达要接受的串的声明方式</p>
+<h6 id="ex3-1-1"><a href="#ex3-1-1" class="headerlink" title="ex3.1.1"></a>ex3.1.1</h6><p>a) 第一个a在第一个b之前，以及相反情况：</p>
+<pre><code>c*a(a+c)*b(a+b+c)* + c*b(b+c)*a(a+b+c)*
+</code></pre><p>b) 倒数第十个是1，其它位置任意：</p>
+<pre><code>(0+1)*1(0+1)9
+</code></pre><p>c) 0<em>(10)</em>11(01)<em>0</em></p>
+<h6 id="ex3-1-2"><a href="#ex3-1-2" class="headerlink" title="ex3.1.2"></a>ex3.1.2</h6><p>a) (1+Ɛ)(01)<em>(00)</em>(10)<em>(0+Ɛ)(11)</em>(01)*(0+Ɛ)</p>
 ]]></content>
     <summary type="html">
     <![CDATA[<!-- TOC -->
