@@ -1,0 +1,550 @@
+
+<!DOCTYPE html>
+<html lang="zh-cn">
+    
+<head>
+    <!-- hexo-inject:begin --><!-- hexo-inject:end --><meta http-equiv="Content-Type" content="text/html" charset="UTF-8" >
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="generator" content="Role Space">
+    <title>人工神经网络(二) 感知器 - Role Space</title>
+    <meta name="author" content="Hover Winter">
+    
+    
+        <link rel="icon" href="http://blog.carpela.me/assets/images/favicon.ico">
+    
+    
+        <link rel="alternate" type="application/atom+xml" title="RSS" href="/atom.xml">
+    
+    <meta name="description" content="感知器是一种最简单的神经网络，用来解决有监督的二分类问题，即输入是否可以归于某一类别。作为简单的线性分类器，Minsky于上世纪60年代指出了它存在的缺陷：线性不可分问题。">
+<meta property="og:type" content="blog">
+<meta property="og:title" content="人工神经网络(二) 感知器">
+<meta property="og:url" content="http://blog.carpela.me/2016/05/06/perceptron/index.html">
+<meta property="og:site_name" content="Role Space">
+<meta property="og:description" content="感知器是一种最简单的神经网络，用来解决有监督的二分类问题，即输入是否可以归于某一类别。作为简单的线性分类器，Minsky于上世纪60年代指出了它存在的缺陷：线性不可分问题。">
+<meta property="og:image" content="http://7xn88z.com1.z0.glb.clouddn.com/single-perceptron.jpg">
+<meta property="og:updated_time" content="2016-05-07T11:57:54.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="人工神经网络(二) 感知器">
+<meta name="twitter:description" content="感知器是一种最简单的神经网络，用来解决有监督的二分类问题，即输入是否可以归于某一类别。作为简单的线性分类器，Minsky于上世纪60年代指出了它存在的缺陷：线性不可分问题。">
+    
+    
+        
+    
+    
+        <meta property="og:image" content="http://blog.carpela.me/assets/images/photo.jpg"/>
+    
+    
+    
+    
+    <!--STYLES-->
+    <link rel="stylesheet" href="/assets/css/style-ejlztp1tasruqfvoz6xmgqng0anzae8ox7cqjj5yibieqgcmhe9fwxfae6zj.min.css" type="text/css">
+    <!--STYLES END--><!-- hexo-inject:begin --><!-- hexo-inject:end -->
+    
+    
+</head>
+
+    <body>
+        <!-- hexo-inject:begin --><!-- hexo-inject:end --><div id="blog">
+            <!-- Define author's picture -->
+
+
+<header id="header" data-behavior="3">
+    <i id="btn-open-sidebar" class="fa fa-lg fa-bars"></i>
+    <h1 class="header-title">
+        <a class="header-title-link" href="/ ">Role Space</a>
+    </h1>
+    
+        
+            <a  class="header-right-icon st-search-show-outputs"
+                href="/#search">
+        
+        
+            <i class="fa fa-lg fa-search"></i>
+        
+        </a>
+    
+</header>
+
+            <!-- Define author's picture -->
+
+
+
+        
+    
+
+<nav id="sidebar" data-behavior="3">
+    
+        <div class="sidebar-profile">
+            <a href="/#about">
+                    <img class="sidebar-profile-picture" src="/assets/images/photo.jpg"/>
+            </a>
+            <span class="sidebar-profile-name">Hover Winter</span>
+        </div>
+    
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/ "
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-home"></i>
+                    <span class="sidebar-button-desc">首页</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-categories"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-bookmark"></i>
+                    <span class="sidebar-button-desc">分类</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-tags"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-tags"></i>
+                    <span class="sidebar-button-desc">标签</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/all-archives"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-archive"></i>
+                    <span class="sidebar-button-desc">归档</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link st-search-show-outputs"
+                         href="/#search"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-search"></i>
+                    <span class="sidebar-button-desc">搜索</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/#about"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-question"></i>
+                    <span class="sidebar-button-desc">关于</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://wiki.carpela.me" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-book"></i>
+                    <span class="sidebar-button-desc">My Wiki</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="https://github.com/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-github"></i>
+                    <span class="sidebar-button-desc">GitHub</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="http://stackoverflow.com/users/5816081/hoverwinter" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-stack-overflow"></i>
+                    <span class="sidebar-button-desc">Stack Overflow</span>
+                </a>
+        </li>
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link " href="mailto:hoverwinter@gmail.com" target="_blank">
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-envelope-o"></i>
+                    <span class="sidebar-button-desc">邮箱</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+        <ul class="sidebar-buttons">
+        
+            <li class="sidebar-button">
+                
+                    <a  class="sidebar-button-link "
+                         href="/atom.xml"
+                        
+                    >
+                
+                    <i class="sidebar-button-icon fa fa-lg fa-rss"></i>
+                    <span class="sidebar-button-desc">RSS</span>
+                </a>
+        </li>
+        
+    </ul>
+    
+</nav>
+
+            
+            <div id="main" data-behavior="3"
+                 class="
+                        hasCoverMetaIn
+                        ">
+                
+<article class="post" itemscope itemType="http://schema.org/BlogPosting">
+    
+    
+        <div class="post-header main-content-wrap text-left">
+    
+        <h1 class="post-title" itemprop="headline">
+            人工神经网络(二) 感知器
+        </h1>
+    
+    <div class="post-meta">
+    <time itemprop="datePublished" content="Fri May 06 2016 15:59:23 GMT+0800">
+	
+		    5月 06, 2016
+    	
+    </time>
+    
+        <span>发布在 </span>
+        
+    <a class="category-link" href="/categories/机器学习/">机器学习</a>
+
+
+    
+</div>
+</div>
+    
+    <div class="post-content markdown" itemprop="articleBody">
+        <div class="main-content-wrap">
+            <p>感知器是一种最简单的神经网络，用来解决有监督的二分类问题，即输入是否可以归于某一类别。作为简单的线性分类器，Minsky于上世纪60年代指出了它存在的缺陷：线性不可分问题。</p>
+<a id="more"></a>
+<h2 id="u5355_u5C42_u611F_u77E5_u5668_u5B66_u4E60"><a href="#u5355_u5C42_u611F_u77E5_u5668_u5B66_u4E60" class="headerlink" title="单层感知器学习"></a>单层感知器学习</h2><p>简单的单层感知器如下</p>
+<p><img src="http://7xn88z.com1.z0.glb.clouddn.com/single-perceptron.jpg" alt="单层感知器"></p>
+<p>它只有输入层和输出层(多输出)。它的激活函数通常为阈值函数，阈值为$\theta，也可以是连续的sigmoid函数。</p>
+<span>$$f(x) = \begin{cases}
+1, x &gt; \theta \\
+0, x \le \theta
+\end{cases}$$</span><!-- Has MathJax -->
+<p>输入数据为 $ (\vec{x},\vec{y}) $，其中 $\vec{x}$ 为特征向量， $\vec{y}$ 为理论输出。我们需要训练 $\vec{w}$ 即权重矩阵。</p>
+<p>当输出与分类器的预测输出之间的欧式距离小于给定的值后，即可认为完成训练。</p>
+<p>$$<br>E = \frac{1}{2}\sum_{j=0}^{n}(y_j - o_j)^2<br>$$</p>
+<p>其中$y_j$是理论输出，$o_j$是实际输出。</p>
+<p>权值更新策略是：<span>$w_{ij} = w_{ij} + \alpha * (y_j - o_j) * x_i$</span><!-- Has MathJax -->，其中 $\alpha$ 是学习率。</p>
+<p>当只有一个输出时，一般算法描述为：</p>
+<pre><code>1. 初始化W和e, d, alpha
+2. while d &gt; e
+    2.1 d = 0
+    2.2 for xi in X:
+        2.2.1 oj = f(x*W)
+        2.2.2 wij += alpha*(yj - oj)*xi
+        2.2.3 d += (yj - oj)^2
+    2.3 d = d/2
+</code></pre><p>它的核心是：上述的<strong>权值的更新方式</strong>（梯度下降法)。对于单层感知器多输出的情况，权值为矩阵，需要对每一个输出按照上述方式更新权值。</p>
+<h2 id="NAND__u4F8B_u5B50"><a href="#NAND__u4F8B_u5B50" class="headerlink" title="NAND 例子"></a>NAND 例子</h2><pre><code>设计一个感知器来学习 NAND 布尔函数，即 1 NAND 1 = 1，其它为0
+
+输入：$x_0$, $x_1$, $x_2$，且 $x_0$ 始终为 1
+阈值：0.5
+学习率：0.1
+训练数据集： {((1, 0, 0), 1), ((1, 0, 1), 1), ((1, 1, 0), 1), ((1, 1, 1), 0)}
+</code></pre><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">#!/usr/bin/env python</span></span><br><span class="line"></span><br><span class="line">RATE = <span class="number">0.1</span></span><br><span class="line">THRESHOLD = <span class="number">0.5</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">threshold</span><span class="params">(x)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> <span class="number">1</span> <span class="keyword">if</span> x &gt; THRESHOLD <span class="keyword">else</span> <span class="number">0</span></span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">train</span><span class="params">(x, y, w, e, f)</span>:</span></span><br><span class="line">	d = e + <span class="number">1</span></span><br><span class="line">	<span class="keyword">while</span> d &gt; e:</span><br><span class="line">		d = <span class="number">0.0</span></span><br><span class="line">		<span class="keyword">for</span> index <span class="keyword">in</span> range(len(x)):</span><br><span class="line">			out = f(sum([ i*j <span class="keyword">for</span> i,j <span class="keyword">in</span> zip(x[index],w)]))</span><br><span class="line">			<span class="keyword">print</span> w</span><br><span class="line">			<span class="keyword">for</span> indicator, value <span class="keyword">in</span> enumerate(x[index]):</span><br><span class="line">				w[indicator] += RATE * (y[index] - out) * value</span><br><span class="line">			d += (y[index] - out) ** <span class="number">2</span></span><br><span class="line">		d /= <span class="number">2</span></span><br><span class="line">		<span class="keyword">print</span> <span class="string">'-'</span>*<span class="number">60</span></span><br><span class="line">	<span class="keyword">return</span> w</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">predict</span><span class="params">(x, w)</span>:</span></span><br><span class="line">	<span class="keyword">return</span> threshold(sum([ i*j <span class="keyword">for</span> i,j <span class="keyword">in</span> zip(x,w)]))</span><br><span class="line"></span><br><span class="line">x = [ [<span class="number">1</span>,<span class="number">0</span>,<span class="number">0</span>], [<span class="number">1</span>,<span class="number">0</span>,<span class="number">1</span>], [<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>], [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>] ]</span><br><span class="line">y = [<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>,<span class="number">0</span>]</span><br><span class="line">w = [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>]</span><br><span class="line"></span><br><span class="line">w = train(x,y,w, <span class="number">0.01</span>, threshold)</span><br><span class="line"></span><br><span class="line"><span class="keyword">print</span> predict([<span class="number">0</span>,<span class="number">1</span>,<span class="number">1</span>], w)</span><br></pre></td></tr></table></figure>
+<h2 id="u7EBF_u6027_u4E0D_u53EF_u5206_u95EE_u9898"><a href="#u7EBF_u6027_u4E0D_u53EF_u5206_u95EE_u9898" class="headerlink" title="线性不可分问题"></a>线性不可分问题</h2><p>当要设计一个 XOR 的感知器时，(0,0) (1,1)为0, (1,0) (0,1)为1。在平面坐标系中不存在一条直线把这四个点分成上述两类。这就表明了感知器的表达能力。为了解决这种问题，可以添加神经网络的层数。这便引出了BP神经网络。</p>
+
+            
+                
+
+            
+        </div>
+    </div>
+    <div id="post-footer" class="post-footer main-content-wrap">
+        
+            <div class="post-footer-tags">
+                <span class="text-color-light text-small">标签</span><br/>
+                
+    <a class="tag tag--primary tag--small t-link" href="/tags/神经网络/">神经网络</a>
+
+            </div>
+        
+        <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/07/bp-nn/"  data-tooltip="人工神经网络(三) BP神经网络">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/05/artificial-neural-network-1-concepts/" data-tooltip="人工神经网络(一) 基本概念">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+        
+            
+                <div id="disqus_thread">
+    <noscript>Please enable JavaScript to view the <a href="//disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+</div>
+            
+        
+    </div>
+</article>
+
+
+
+                <footer id="footer" class="main-content-wrap">
+    <span class="copyrights">
+        Copyrights &copy; 2016 Hover Winter. All Rights Reserved.
+    </span>
+</footer>
+
+            </div>
+            
+                <div id="bottom-bar" class="post-bottom-bar" data-behavior="3">
+                    <div class="post-actions-wrap">
+    <nav>
+        <ul class="post-actions post-action-nav">
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/07/bp-nn/"  data-tooltip="人工神经网络(三) BP神经网络">
+                
+                    <i class="fa fa-angle-left"></i>
+                    <span class="hide-xs hide-sm text-small icon-ml">上一篇</span>
+                </a>
+            </li>
+            <li class="post-action">
+                
+                    <a class="post-action-btn btn btn--default tooltip--top" href="/2016/05/05/artificial-neural-network-1-concepts/" data-tooltip="人工神经网络(一) 基本概念">
+                
+                    <span class="hide-xs hide-sm text-small icon-mr">下一篇</span>
+                    <i class="fa fa-angle-right"></i>
+                </a>
+            </li>
+        </ul>
+    </nav>
+    <ul class="post-actions post-action-share">
+        <li class="post-action hide-lg hide-md hide-sm">
+            <a class="post-action-btn btn btn--default btn-open-shareoptions"  href="#btn-open-shareoptions">
+                <i class="fa fa-share-alt"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-google-plus"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-facebook-official"></i>
+            </a>
+        </li>
+        <li class="post-action hide-xs">
+            <a class="post-action-btn btn btn--default" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-twitter"></i>
+            </a>
+        </li>
+        
+            <li class="post-action">
+                <a class="post-action-btn btn btn--default" href="#disqus_thread">
+                    <i class="fa fa-comment-o"></i>
+                </a>
+            </li>
+        
+        <li class="post-action">
+            
+                <a class="post-action-btn btn btn--default" href="#">
+            
+                <i class="fa fa-list"></i>
+            </a>
+        </li>
+    </ul>
+</div>
+
+
+                </div>
+                <div id="share-options-bar" class="share-options-bar" data-behavior="3">
+    <ul class="share-options">
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://plus.google.com/share?url=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-google-plus"></i><span class="">分享到 Google+</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://www.facebook.com/sharer/sharer.php?u=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-facebook-official"></i><span>分享到 Facebook</span>
+            </a>
+        </li>
+        <li class="share-option">
+            <a class="share-option-btn" target="new" href="https://twitter.com/intent/tweet?text=http://blog.carpela.me/2016/05/06/perceptron/">
+                <i class="fa fa-twitter"></i><span>分享到 Twitter</span>
+            </a>
+        </li>
+    </ul>
+</div>
+<div id="share-options-mask" class="share-options-mask"></div>
+            
+        </div>
+        
+
+
+    
+        
+    
+
+<div id="about">
+    <div id="about-card">
+        <div id="about-btn-close">
+            <i class="fa fa-remove"></i>
+        </div>
+        
+            <img id="about-card-picture" src="/assets/images/photo.jpg"/>
+        
+            <h4 id="about-card-name">Hover Winter</h4>
+        
+            <h5 id="about-card-bio"><p>A student devote to the computer science</p>
+</h5>
+        
+        
+            <h5 id="about-card-job">
+                <i class="fa fa-briefcase"></i>
+                <br/>
+                <p>2015 Internship in Alibaba</p>
+
+            </h5>
+        
+        
+    </div>
+</div>
+
+        
+<div id="cover" style="background-image:url('/assets/images/cover.jpg');"></div><!-- hexo-inject:begin --><!-- Begin: Injected MathJax -->
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({"tex2jax":{"inlineMath":[["$","$"],["\\(","\\)"]],"skipTags":["script","noscript","style","textarea","pre","code"],"processEscapes":true},"TeX":{"equationNumbers":{"autoNumber":"AMS"}}});
+</script>
+
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+      all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+</script>
+
+<script type="text/javascript" src="//cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+</script>
+<!-- End: Injected MathJax -->
+<!-- hexo-inject:end -->
+    </body>
+    <!--SCRIPTS-->
+<script src="/assets/js/scrip-gfmrkxcl0qohe3cfdgxhzvc0yrceqta8i4iix0txvn8q4o2adlqd5n0jmkvt.min.js" type="text/javascript"></script>
+<!--SCRIPTS END-->
+
+    
+        <script>
+             var disqus_config = function () {
+                 this.page.url = 'http://blog.carpela.me/2016/05/06/perceptron/';
+                 
+                    this.page.identifier = '2016/05/06/perceptron/';
+                                  
+             };
+            (function() {
+                var d = document, s = d.createElement('script');
+                var disqus_shortname = 'hoverwinter';
+                s.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+
+                s.setAttribute('data-timestamp', +new Date());
+                (d.head || d.body).appendChild(s);
+            })();
+        </script>
+    
+
+
+    <script type="text/javascript">
+        (function(w,d,t,u,n,s,e){w['SwiftypeObject']=n;w[n]=w[n]||function(){
+                (w[n].q=w[n].q||[]).push(arguments);};s=d.createElement(t);
+            e=d.getElementsByTagName(t)[0];s.async=1;s.src=u;e.parentNode.insertBefore(s,e);
+        })(window,document,'script','//s.swiftypecdn.com/install/v2/st.js','_st');
+
+        _st('install','7HEJue7Z2VadUFupdb9W','2.0.0');
+    </script>
+
+
+</html>
